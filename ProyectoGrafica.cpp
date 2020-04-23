@@ -1,7 +1,9 @@
 /*---------------------------------------------------------*/
-/* ----------------   Práctica 9 --------------------------*/
+/* ----------------   Proyecto Area Residencial --------------------------*/
 /*-----------------    2020-2   ---------------------------*/
-/*------------- Alumno: Ortega Moreno Omar Orlando---------------*/
+/*------------- Alumnos: Dominguez Cisneros Alexis Saul
+						 Montecillo Sandoval Jose Alejandro
+						 Ortega Moreno Omar Orlando---------------*/
 //#define STB_IMAGE_IMPLEMENTATION
 #include <glew.h>
 #include <glfw3.h>
