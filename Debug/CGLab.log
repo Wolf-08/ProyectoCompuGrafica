@@ -1,0 +1,4 @@
+﻿  main_prac9.cpp
+c:\users\pc\source\repos\cglab\cglab\main_prac9.cpp(467): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\pc\source\repos\cglab\cglab\main_prac9.cpp(474): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+  CGLab.vcxproj -> C:\Users\pc\source\repos\CGLab\Debug\CGLab.exe
