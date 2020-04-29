@@ -1,0 +1,58 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 26.04.2020 03:27:16
+
+newmtl Material__27
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\__Wood_Bamboo_2.jpg
+	map_Kd C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\__Wood_Bamboo_2.jpg
+
+newmtl Material__198
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\tela-plana-rayas-blanca-roja-23mm.jpg
+	map_Kd C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\tela-plana-rayas-blanca-roja-23mm.jpg
+
+newmtl 07___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\sayun\Downloads\Ale\Concret.jpg
+	map_Kd C:\Users\sayun\Downloads\Ale\Concret.jpg
+
+newmtl Material__38
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\azul.jpg
+	map_Kd C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\azul.jpg
