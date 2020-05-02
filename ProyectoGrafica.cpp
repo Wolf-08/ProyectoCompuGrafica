@@ -1,5 +1,5 @@
 /*---------------------------------------------------------*/
-/* ----------------   Proyecto Area Residencial --------------------------*/
+/* ----------------   Proyecto Area recidencial --------------------------*/
 /*-----------------    2020-2   ---------------------------*/
 /*------------- Alumnos: Dominguez Cisneros Alexis Saul
 						 Montecillo Sandoval Jose Alejandro
@@ -32,7 +32,7 @@ GLFWmonitor *monitors;
 GLuint skyboxVBO, skyboxVAO;
 
 //Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(3.0f, 2.0f, 7.0f));
 double	lastX = 0.0f,
 		lastY = 0.0f;
 bool firstMouse = true;
@@ -42,7 +42,7 @@ double	deltaTime = 0.0f,
 		lastFrame = 0.0f;
 
 //Lighting
-glm::vec3 lightPosition(0.0f, 4.0f, 3.0f);
+glm::vec3 lightPosition(0.0f, 8.0f, 5.0f);
 glm::vec3 lightDirection(0.0f, -1.0f, 0.0f);
 
 void myData(void);
@@ -65,12 +65,17 @@ unsigned int	t_smile,
 //For model
 bool animacion = false;
 float movAuto_z = 0.0f;
+float movAuto_y = -1.7f;
 bool avanza = true;
+
 void sonido() {
 
 	sndPlaySound("s.wav", SND_ASYNC);
 
 }
+
+bool arriba = false;
+
 
 void sonido();
 
@@ -187,6 +192,7 @@ void myData()
 
 }
 
+int mov_auto = 0;
 void animate(void)
 {
 	
@@ -204,12 +210,12 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	shader.setVec3("pointLight[0].position", lightPosition);
-	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[0].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("pointLight[0].ambient", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setVec3("pointLight[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("pointLight[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.setFloat("pointLight[0].constant", 1.0f);
-	shader.setFloat("pointLight[0].linear", 0.009f);
-	shader.setFloat("pointLight[0].quadratic", 0.0032f);
+	shader.setFloat("pointLight[0].constant", 1.0f); 
+	shader.setFloat("pointLight[0].linear", 0.009f);  
+	shader.setFloat("pointLight[0].quadratic", 0.0032f); 
 
 	shader.setVec3("pointLight[1].position", glm::vec3(0.0, 0.0f, 0.0f));
 	shader.setVec3("pointLight[1].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -236,6 +242,8 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
 
+	model = glm::mat4(1.0f);
+
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.8f, -1.0f));
 	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
 	shader.setMat4("model", model);
@@ -255,6 +263,30 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelArbol1 = glm::scale(modelArbol1, glm::vec3(1, 1, 1));
 	shader.setMat4("model", modelArbol1);
 	modelArr.at(2).Draw(shader);
+
+	glm::mat4 modelShrek = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f, 0.2f, 0.2f));
+	modelShrek = glm::rotate(modelShrek, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelShrek = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	shader.setMat4("model", modelShrek);
+	modelArr.at(3).Draw(shader);
+
+	glm::mat4 modelBuilding = glm::rotate(glm::mat4(1.0f), glm::radians(0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	modelBuilding = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 0.0f));
+	modelBuilding = glm::scale(modelBuilding, glm::vec3(3.0f,3.0f, 3.0f));
+	shader.setMat4("model", modelBuilding);
+	modelArr.at(4).Draw(shader);
+
+	glm::mat4 modelEdificio2 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	modelEdificio2 = glm::translate(glm::mat4(1.0f), glm::vec3(5.5f, 2.0f, 6.0f));
+	modelEdificio2 = glm::scale(modelEdificio2, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelEdificio2);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelAccumula = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	modelAccumula = glm::translate(glm::mat4(1.0f), glm::vec3(4.5f, 2.0f, 4.5f));
+	modelAccumula = glm::scale(modelAccumula, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelAccumula);
+	modelArr.at(6).Draw(shader);
 
 	// Draw skybox as last
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
@@ -327,15 +359,20 @@ int main()
 	Model pisoModel = ((char *)"Models/piso/piso.obj");
 	Model modelEdificio = ((char *)"Models/edificio/edificio.obj");
 	Model arbol = ((char *)"Models/arbol/arbol.obj");
-	/*Model modelCasa = ((char *)"");
-	Model modelCasa = ((char *)"");*/
+	Model modelShrek = ((char *)"Models/Shrek/Shrek.obj");
+	Model modelBuilding = ((char *)"Models/Edificio/Building.obj");
+	Model modelEdificio2 = ((char *)"Models/edificio02/edificio2.obj");
+	Model ModelAccumulaTownBuilding = ((char *)"Models/Pkedificio/AccumulaTownBuilding.obj");
 
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
-	modelArr.push_back(pisoModel);
-	modelArr.push_back(modelEdificio);
-	modelArr.push_back(arbol);
-
+	modelArr.push_back(pisoModel); //0
+	modelArr.push_back(modelEdificio); //1
+	modelArr.push_back(arbol); //2
+	modelArr.push_back(modelShrek); //3
+	modelArr.push_back(modelBuilding); //4
+	modelArr.push_back(modelEdificio2); //5
+	modelArr.push_back(ModelAccumulaTownBuilding); //6
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -401,6 +438,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
+
+
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		lightPosition.z -=0.5f;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
