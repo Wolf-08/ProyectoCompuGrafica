@@ -182,36 +182,10 @@ void myData()
 
 void animate(void)
 {
-	if (animacion)
-	{
-		if (avanza) {
-			if (movAuto_z < 10.0f) {
-				movAuto_z += 0.03f;
-				if (movAuto_z >= 10.0f) {
-					avanza = false;
-				}
-
-			}
-		}
-		else {
-			if (movAuto_z > 0.0f) {
-				movAuto_z -= 0.03f;
-				if (movAuto_z <= 0.0f) {
-					avanza = true;
-				}
-			}
-			
-		}
-		
-
-		//if (movAuto_z <= 10.0f)
-			//movAuto_z += 0.03f;
-
-		printf("Posicion %f \n", movAuto_z);
-	}
+	
 }
 
-void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Model llantas, Model piso)
+void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Model> modelArr)
 {
 	shader.use();
 
@@ -219,16 +193,16 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Mo
 	shader.setVec3("viewPos", camera.Position);
 	shader.setVec3("dirLight.direction", lightDirection);
 	shader.setVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	shader.setVec3("pointLight[0].position", lightPosition);
 	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("pointLight[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setVec3("pointLight[0].diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
 	shader.setVec3("pointLight[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
-	shader.setFloat("pointLight[0].constant", 1.0f); 
-	shader.setFloat("pointLight[0].linear", 0.009f);  
-	shader.setFloat("pointLight[0].quadratic", 0.032f); 
+	shader.setFloat("pointLight[0].constant", 1.0f);
+	shader.setFloat("pointLight[0].linear", 0.009f);
+	shader.setFloat("pointLight[0].quadratic", 0.0032f);
 
 	shader.setVec3("pointLight[1].position", glm::vec3(0.0, 0.0f, 0.0f));
 	shader.setVec3("pointLight[1].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -237,7 +211,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Mo
 	shader.setFloat("pointLight[1].constant", 1.0f);
 	shader.setFloat("pointLight[1].linear", 0.009f);
 	shader.setFloat("pointLight[1].quadratic", 0.032f);
-	
+
 	shader.setFloat("material_shininess", 32.0f);
 
 	// create transformations and Projection
@@ -253,42 +227,27 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Mo
 	// pass them to the shaders
 	shader.setMat4("model", model);
 	shader.setMat4("view", view);
-	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
 
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.8f, -1.0f));
-	model = glm::scale(model, glm::vec3(0.007f, 0.007f, 0.007f));
+	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
 	shader.setMat4("model", model);
-	piso.Draw(shader);
+	modelArr.at(0).Draw(shader);
 
-	model = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	tmp = model = glm::translate(model, glm::vec3(15.0f, -1.75f, movAuto_z));
-	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-	//model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
-	shader.setMat4("model", model);
-	modelo.Draw(shader);
+	glm::mat4 modelEdificio = glm::translate(glm::mat4(1.0f), glm::vec3(0,-1.785,-1));
+	modelEdificio = glm::scale(modelEdificio, glm::vec3(10,10,10));
+	shader.setMat4("model", modelEdificio);
+	modelArr.at(1).Draw(shader);
 
-	model = glm::translate(tmp, glm::vec3(0.85f, 0.25f, 1.29f));
-	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-	shader.setMat4("model", model);
-	llantas.Draw(shader);	//Izq delantera
+	glm::mat4 modelArbol = glm::translate(glm::mat4(1.0f), glm::vec3(-16, -1.785, -1));
+	modelArbol = glm::scale(modelArbol, glm::vec3(1,1,1));
+	shader.setMat4("model", modelArbol);
+	modelArr.at(2).Draw(shader);
 
-	model = glm::translate(tmp, glm::vec3(-0.85f, 0.25f, 1.29f));
-	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	llantas.Draw(shader);	//Der delantera
-
-	model = glm::translate(tmp, glm::vec3(-0.85f, 0.25f, -1.45f));
-	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-	model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	shader.setMat4("model", model);
-	llantas.Draw(shader);	//Der trasera
-
-	model = glm::translate(tmp, glm::vec3(0.85f, 0.25f, -1.45f));
-	model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-	shader.setMat4("model", model);
-	llantas.Draw(shader);	//Izq trase
+	glm::mat4 modelArbol1 = glm::translate(glm::mat4(1.0f), glm::vec3(-16, -1.785, -6));
+	modelArbol1 = glm::scale(modelArbol1, glm::vec3(1, 1, 1));
+	shader.setMat4("model", modelArbol1);
+	modelArr.at(2).Draw(shader);
 
 	// Draw skybox as last
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
@@ -325,7 +284,7 @@ int main()
 	monitors = glfwGetPrimaryMonitor();
 	getResolution();
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Practica 9", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Proyecto Final CGEIHC", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -356,10 +315,19 @@ int main()
 	//For Primitives
 	//Shader primitivasShader("shaders/shader_texture_color.vs", "shaders/shader_texture_color.fs");
 	Shader SkyBoxshader("Shaders/SkyBox.vs", "Shaders/SkyBox.frag");
-	// Load model
-	Model ourModel = ((char *)"Models/Lambo/carroseria.obj");
-	Model llantasModel = ((char *)"Models/Lambo/Wheel.obj");
+	
+	/*Carga de Modelos*/
 	Model pisoModel = ((char *)"Models/piso/piso.obj");
+	Model modelEdificio = ((char *)"Models/edificio/edificio.obj");
+	Model arbol = ((char *)"Models/arbol/arbol.obj");
+	/*Model modelCasa = ((char *)"");
+	Model modelCasa = ((char *)"");*/
+
+	/*Array para los modelos*/
+	std::vector<Model> modelArr;
+	modelArr.push_back(pisoModel);
+	modelArr.push_back(modelEdificio);
+	modelArr.push_back(arbol);
 
 
 	// Load textures
@@ -395,8 +363,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader, SkyBoxshader, cubemapTexture, ourModel, llantasModel, pisoModel);
-
+		display(modelShader, SkyBoxshader, cubemapTexture, modelArr);
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
