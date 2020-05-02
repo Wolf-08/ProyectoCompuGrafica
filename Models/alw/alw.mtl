@@ -12,8 +12,8 @@ newmtl 02___Default
 	Kd 0.5882 0.5882 0.5882
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\blanco.jpg
-	map_Kd C:\Users\sayun\Desktop\PROYECTO FINAL\ProyectoFinalCGeIHC-master\P9\Textures\blanco.jpg
+	map_Ka blanco.jpg
+	map_Kd blanco.jpg
 
 newmtl Material
 	Ns 32.6421
