@@ -1,5 +1,5 @@
 /*---------------------------------------------------------*/
-/* ----------------   Proyecto Area Residencial --------------------------*/
+/* ----------------   Proyecto Area recidencial --------------------------*/
 /*-----------------    2020-2   ---------------------------*/
 /*------------- Alumnos: Dominguez Cisneros Alexis Saul
 						 Montecillo Sandoval Jose Alejandro
@@ -32,7 +32,7 @@ GLFWmonitor *monitors;
 GLuint skyboxVBO, skyboxVAO;
 
 //Camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(3.0f, 2.0f, 7.0f));
 double	lastX = 0.0f,
 		lastY = 0.0f;
 bool firstMouse = true;
@@ -42,7 +42,7 @@ double	deltaTime = 0.0f,
 		lastFrame = 0.0f;
 
 //Lighting
-glm::vec3 lightPosition(0.0f, 4.0f, 3.0f);
+glm::vec3 lightPosition(0.0f, 8.0f, 5.0f);
 glm::vec3 lightDirection(0.0f, -1.0f, 0.0f);
 
 void myData(void);
@@ -65,12 +65,17 @@ unsigned int	t_smile,
 //For model
 bool animacion = false;
 float movAuto_z = 0.0f;
+float movAuto_y = -1.7f;
 bool avanza = true;
+
 void sonido() {
 
 	sndPlaySound("s.wav", SND_ASYNC);
 
 }
+
+bool arriba = false;
+
 
 void sonido();
 
@@ -187,38 +192,49 @@ void myData()
 
 }
 
+int mov_auto = 0;
 void animate(void)
 {
 	if (animacion)
 	{
-		if (avanza) {
-			if (movAuto_z < 10.0f) {
+		if (mov_auto == 0) {
+			movAuto_z -= 0.03f;
+			if (movAuto_z <= -7.0f){
+				mov_auto = 1;
+			}
+		}
+		if (mov_auto == 1) {
+			movAuto_y += 0.03f;
+			if (movAuto_y >= 5.5f) {
+				mov_auto = 2;
+			}
+		}
+		if (mov_auto == 2) {
 				movAuto_z += 0.03f;
-				if (movAuto_z >= 10.0f) {
-					avanza = false;
-				}
-
+				if (movAuto_z >= 11.0f)
+					mov_auto = 3;
 			}
+		if (mov_auto == 3)
+		{
+			movAuto_y -= 0.03f;
+			if (movAuto_y <= -1.7f)
+				mov_auto = 4;
 		}
-		else {
-			if (movAuto_z > 0.0f) {
-				movAuto_z -= 0.03f;
-				if (movAuto_z <= 0.0f) {
-					avanza = true;
-				}
-			}
-			
+		if (mov_auto == 4) {
+			movAuto_z += 0.03f;
+			if (movAuto_z >= 14.5f)
+				mov_auto= 5;
 		}
-		
 
-		//if (movAuto_z <= 10.0f)
-			//movAuto_z += 0.03f;
+	
 
-		printf("Posicion %f \n", movAuto_z);
+		printf("Posicion Z %f \n", movAuto_z);
+		printf("Posicion Y %f \n", movAuto_y);
 	}
 }
 
-void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Model llantas, Model piso)
+
+void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Model llantas, Model piso, Model Shrek, Model Building, Model edificio2, Model AccumulaTownBuilding)
 {
 	shader.use();
 
@@ -226,16 +242,16 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Mo
 	shader.setVec3("viewPos", camera.Position);
 	shader.setVec3("dirLight.direction", lightDirection);
 	shader.setVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
-	shader.setVec3("dirLight.diffuse", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("dirLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("dirLight.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
 	shader.setVec3("pointLight[0].position", lightPosition);
-	shader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader.setVec3("pointLight[0].ambient", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("pointLight[0].diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setVec3("pointLight[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader.setFloat("pointLight[0].constant", 1.0f); 
 	shader.setFloat("pointLight[0].linear", 0.009f);  
-	shader.setFloat("pointLight[0].quadratic", 0.032f); 
+	shader.setFloat("pointLight[0].quadratic", 0.0032f); 
 
 	shader.setVec3("pointLight[1].position", glm::vec3(0.0, 0.0f, 0.0f));
 	shader.setVec3("pointLight[1].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -262,6 +278,35 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, Model modelo, Mo
 	shader.setMat4("view", view);
 	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader.setMat4("projection", projection);
+
+	model = glm::mat4(1.0f);
+	
+	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	shader.setMat4("model", model);
+	Shrek.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(3.0f,3.0f, 3.0f));
+	shader.setMat4("model", model);
+	Building.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(5.5f, 2.0f, 6.0f));
+	model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", model);
+	edificio2.Draw(shader);
+
+	model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(4.5f, 2.0f, 4.5f));
+	model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", model);
+	AccumulaTownBuilding.Draw(shader);
 
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.8f, -1.0f));
 	model = glm::scale(model, glm::vec3(0.007f, 0.007f, 0.007f));
@@ -367,8 +412,10 @@ int main()
 	Model ourModel = ((char *)"Models/Lambo/carroseria.obj");
 	Model llantasModel = ((char *)"Models/Lambo/Wheel.obj");
 	Model pisoModel = ((char *)"Models/piso/piso.obj");
-
-
+	Model Shrek = ((char *)"Models/Shrek/Shrek.obj");
+	Model Building = ((char *)"Models/Edificio/Building.obj");
+	Model edificio2 = ((char *)"Models/edificio02/edificio2.obj");
+	Model AccumulaTownBuilding = ((char *)"Models/Pkedificio/AccumulaTownBuilding.obj");
 	// Load textures
 	vector<const GLchar*> faces;
 	faces.push_back("SkyBox/right.tga");
@@ -402,7 +449,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//display(modelShader, ourModel, llantasModel);
-		display(modelShader, SkyBoxshader, cubemapTexture, ourModel, llantasModel, pisoModel);
+		display(modelShader, SkyBoxshader, cubemapTexture, ourModel, llantasModel, pisoModel,Shrek, Building, edificio2, AccumulaTownBuilding);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -434,6 +481,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
+
+
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		lightPosition.z -=0.5f;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
