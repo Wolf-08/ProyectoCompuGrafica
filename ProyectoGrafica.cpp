@@ -8,7 +8,8 @@
 #include <glew.h>
 #include <glfw3.h>
 #include <stb_image.h>
-
+#include <Windows.h>
+#include <MMSystem.h>
 #include "camera.h"
 #include "Model.h"
 #include "Texture.h"
@@ -65,7 +66,13 @@ unsigned int	t_smile,
 bool animacion = false;
 float movAuto_z = 0.0f;
 bool avanza = true;
+void sonido() {
 
+	sndPlaySound("s.wav", SND_ASYNC);
+
+}
+
+void sonido();
 
 unsigned int generateTextures(const char* filename, bool alfa)
 {
