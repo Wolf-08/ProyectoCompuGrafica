@@ -1,5 +1,5 @@
 /*---------------------------------------------------------*/
-/* ----------------   Proyecto Area recidencial --------------------------*/
+/* ----------------   Proyecto Area residencial --------------------------*/
 /*-----------------    2020-2   ---------------------------*/
 /*------------- Alumnos: Dominguez Cisneros Alexis Saul
 						 Montecillo Sandoval Jose Alejandro
@@ -228,7 +228,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setFloat("material_shininess", 32.0f);
 
 	// create transformations and Projection
-	glm::mat4 tmp = glm::mat4(1.0f);
+	glm::mat4 origin = glm::mat4(1.0f);
 	glm::mat4 model = glm::mat4(1.0f);		// initialize Matrix, Use this matrix for individual models
 	glm::mat4 view = glm::mat4(1.0f);		//Use this matrix for ALL models
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
@@ -242,51 +242,341 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("view", view);
 	shader.setMat4("projection", projection);
 
-	model = glm::mat4(1.0f);
+	/*LISTA ORDEN ARREGLO
+	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
+	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
+	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17 
+	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.8f, -1.0f));
+	model = glm::mat4(1.0f);
+	origin = glm::mat4(1.0f);
+
+	model = glm::translate(origin, glm::vec3(0.0f, -1.8f, -1.0f));
 	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
 	shader.setMat4("model", model);
 	modelArr.at(0).Draw(shader);
 
-	glm::mat4 modelEdificio = glm::translate(glm::mat4(1.0f), glm::vec3(0,-1.785,-1));
-	modelEdificio = glm::scale(modelEdificio, glm::vec3(10,10,10));
-	shader.setMat4("model", modelEdificio);
+	glm::mat4 modelAlberca = glm::translate(origin, glm::vec3(0, 0.7, 0));
+	modelAlberca = glm::scale(modelAlberca, glm::vec3(.1f, .1f, .1f));
+	shader.setMat4("model", modelAlberca);
 	modelArr.at(1).Draw(shader);
 
-	glm::mat4 modelArbol = glm::translate(glm::mat4(1.0f), glm::vec3(-16, -1.785, -1));
-	modelArbol = glm::scale(modelArbol, glm::vec3(1,1,1));
-	shader.setMat4("model", modelArbol);
+	glm::mat4 modelCasa = glm::translate(origin, glm::vec3(0.0f, -1.7f, -25.0f));
+	modelCasa = glm::scale(modelCasa, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelArbol1 = glm::translate(glm::mat4(1.0f), glm::vec3(-16, -1.785, -6));
-	modelArbol1 = glm::scale(modelArbol1, glm::vec3(1, 1, 1));
-	shader.setMat4("model", modelArbol1);
+	glm::mat4 modelCasa1 = glm::translate(origin, glm::vec3(20.0f, -1.7f, -25.0f));
+	modelCasa1 = glm::scale(modelCasa1, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa1);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelShrek = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f, 0.2f, 0.2f));
-	modelShrek = glm::rotate(modelShrek, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-	modelShrek = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.0f, 0.0f));
-	shader.setMat4("model", modelShrek);
-	modelArr.at(3).Draw(shader);
+	glm::mat4 modelCasa2 = glm::translate(origin, glm::vec3(-20.0f, -1.7f, -25.0f));
+	modelCasa2 = glm::scale(modelCasa2, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa2);
+	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelBuilding = glm::rotate(glm::mat4(1.0f), glm::radians(0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	modelBuilding = glm::translate(glm::mat4(1.0f), glm::vec3(2.5f, 2.0f, 0.0f));
-	modelBuilding = glm::scale(modelBuilding, glm::vec3(3.0f,3.0f, 3.0f));
-	shader.setMat4("model", modelBuilding);
-	modelArr.at(4).Draw(shader);
+	glm::mat4 modelCasa3 = glm::translate(origin, glm::vec3(50.0f, -1.7f, 0.0f));
+	modelCasa3 = glm::rotate(modelCasa3, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f)); 
+	modelCasa3 = glm::scale(modelCasa3, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa3);
+	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelEdificio2 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	modelEdificio2 = glm::translate(glm::mat4(1.0f), glm::vec3(5.5f, 2.0f, 6.0f));
-	modelEdificio2 = glm::scale(modelEdificio2, glm::vec3(3.0f, 3.0f, 3.0f));
+	glm::mat4 modelCasa7 = glm::translate(origin, glm::vec3(50.0f, -1.7f, -20.0f));
+	modelCasa7 = glm::rotate(modelCasa7, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelCasa7 = glm::scale(modelCasa7, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa7);
+	modelArr.at(2).Draw(shader);
+
+	glm::mat4 modelCasa4 = glm::translate(origin, glm::vec3(0.0f, -1.7f, -45.0f));
+	modelCasa4 = glm::scale(modelCasa4, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa4);
+	modelArr.at(2).Draw(shader);
+
+	glm::mat4 modelCasa5 = glm::translate(origin, glm::vec3(20.0f, -1.7f, -45.0f));
+	modelCasa5 = glm::scale(modelCasa5, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa5);
+	modelArr.at(2).Draw(shader);
+
+	glm::mat4 modelCasa6 = glm::translate(origin, glm::vec3(-20.0f, -1.7f, -45.0f));
+	modelCasa6 = glm::scale(modelCasa6, glm::vec3(2.0f, 6.0f, 2.0f));
+	shader.setMat4("model", modelCasa6);
+	modelArr.at(2).Draw(shader);
+
+	glm::mat4 modelEdificio2 = glm::translate(origin, glm::vec3(0, 8.2, 65));
+	modelEdificio2 = glm::rotate(modelEdificio2, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio2 = glm::scale(modelEdificio2, glm::vec3(8.0f, 8.0f, 8.0f));
 	shader.setMat4("model", modelEdificio2);
 	modelArr.at(5).Draw(shader);
 
-	glm::mat4 modelAccumula = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	modelAccumula = glm::translate(glm::mat4(1.0f), glm::vec3(4.5f, 2.0f, 4.5f));
-	modelAccumula = glm::scale(modelAccumula, glm::vec3(3.0f, 3.0f, 3.0f));
-	shader.setMat4("model", modelAccumula);
-	modelArr.at(6).Draw(shader);
+	glm::mat4 modelEdificio3 = glm::translate(origin, glm::vec3(-15, 8.2, 65));
+	modelEdificio3 = glm::rotate(modelEdificio3, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio3 = glm::scale(modelEdificio3, glm::vec3(8.0f, 8.0f, 8.0f));
+	shader.setMat4("model", modelEdificio3);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelEdificio5 = glm::translate(origin, glm::vec3(-30, 8.2, 65));
+	modelEdificio5 = glm::rotate(modelEdificio5, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio5 = glm::scale(modelEdificio5, glm::vec3(8.0f, 8.0f, 8.0f));
+	shader.setMat4("model", modelEdificio5);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelEdificio4 = glm::translate(origin, glm::vec3(15, 8.2, 65));
+	modelEdificio4 = glm::rotate(modelEdificio4, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio4 = glm::scale(modelEdificio4, glm::vec3(8.0f, 8.0f, 8.0f));
+	shader.setMat4("model", modelEdificio4);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelEdificio6 = glm::translate(origin, glm::vec3(30, 8.2, 65));
+	modelEdificio6 = glm::rotate(modelEdificio6, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio6 = glm::scale(modelEdificio6, glm::vec3(8.0f, 8.0f, 8.0f));
+	shader.setMat4("model", modelEdificio6);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelEdificio7 = glm::translate(origin, glm::vec3(45, 8.2, 65));
+	modelEdificio7 = glm::rotate(modelEdificio7, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+	modelEdificio7 = glm::scale(modelEdificio7, glm::vec3(8.0f, 8.0f, 8.0f));
+	shader.setMat4("model", modelEdificio7);
+	modelArr.at(5).Draw(shader);
+
+	glm::mat4 modelHouseF = glm::translate(origin, glm::vec3(-50, -1.5, 0));
+	modelHouseF = glm::rotate(modelHouseF, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelHouseF = glm::scale(modelHouseF, glm::vec3(4.5f, 4.5f, 4.5f));
+	shader.setMat4("model", modelHouseF);
+	modelArr.at(7).Draw(shader);
+
+	glm::mat4 modelHouseF1 = glm::translate(origin, glm::vec3(-50, -1.5, -20));
+	modelHouseF1 = glm::rotate(modelHouseF1, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelHouseF1 = glm::scale(modelHouseF1, glm::vec3(4.5f, 4.5f, 4.5f));
+	shader.setMat4("model", modelHouseF1);
+	modelArr.at(7).Draw(shader);
+
+	glm::mat4 modelHouseF2 = glm::translate(origin, glm::vec3(-50, -1.5, 20));
+	modelHouseF2 = glm::rotate(modelHouseF2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelHouseF2 = glm::scale(modelHouseF2, glm::vec3(4.5f, 4.5f, 4.5f));
+	shader.setMat4("model", modelHouseF2);
+	modelArr.at(7).Draw(shader);
+
+	glm::mat4 modelHouseF3 = glm::translate(origin, glm::vec3(-50, -1.5, 40));
+	modelHouseF3 = glm::rotate(modelHouseF3, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelHouseF3 = glm::scale(modelHouseF3, glm::vec3(4.5f, 4.5f, 4.5f));
+	shader.setMat4("model", modelHouseF3);
+	modelArr.at(7).Draw(shader);
+
+	glm::mat4 modelArbol = glm::translate(origin, glm::vec3(0, -1.8, -30));
+	modelArbol = glm::scale(modelArbol, glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setMat4("model", modelArbol);
+	modelArr.at(8).Draw(shader);
+
+	glm::mat4 modelArbol1 = glm::translate(origin, glm::vec3(0, -1.8, -17));
+	modelArbol1 = glm::scale(modelArbol1, glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setMat4("model", modelArbol1);
+	modelArr.at(8).Draw(shader);
+
+	glm::mat4 copyModelArbol = glm::translate(origin, glm::vec3(14, -1.8, -17));
+	copyModelArbol = glm::scale(copyModelArbol, glm::vec3(1.0f, 1.0f, 1.0f));
+	shader.setMat4("model", copyModelArbol);
+	modelArr.at(8).Draw(shader);
+
+	glm::mat4 modelArbolGnomo = glm::translate(origin, glm::vec3(-50, 5.7, -45));
+	modelArbolGnomo = glm::scale(modelArbolGnomo, glm::vec3(6.0f, 6.0f, 6.0f));
+	shader.setMat4("model", modelArbolGnomo);
+	modelArr.at(10).Draw(shader);
+
+	glm::mat4 modelArbolGnomo1 = glm::translate(origin, glm::vec3(-65, 5.7, -50));
+	modelArbolGnomo1 = glm::scale(modelArbolGnomo1, glm::vec3(6.0f, 6.0f, 6.0f));
+	shader.setMat4("model", modelArbolGnomo1);
+	modelArr.at(10).Draw(shader);
+
+	glm::mat4 modelArbolGnomo2 = glm::translate(origin, glm::vec3(-60, 5.7, -40));
+	modelArbolGnomo2 = glm::scale(modelArbolGnomo2, glm::vec3(6.0f, 6.0f, 6.0f));
+	shader.setMat4("model", modelArbolGnomo2);
+	modelArr.at(10).Draw(shader);
+
+	glm::mat4 modelArbolGnomo3 = glm::translate(origin, glm::vec3(-60, 5.7, -58));
+	modelArbolGnomo3 = glm::scale(modelArbolGnomo3, glm::vec3(6.0f, 6.0f, 6.0f));
+	shader.setMat4("model", modelArbolGnomo3);
+	modelArr.at(10).Draw(shader);
+
+	glm::mat4 modelPalmerita = glm::translate(origin, glm::vec3(15, 2.7, 0));
+	modelPalmerita = glm::scale(modelPalmerita, glm::vec3(5, 5, 5));
+	shader.setMat4("model", modelPalmerita);
+	modelArr.at(11).Draw(shader);
+
+	glm::mat4 modelPalmerita1 = glm::translate(origin, glm::vec3(15, 2.7, 5));
+	modelPalmerita1 = glm::scale(modelPalmerita1, glm::vec3(5, 5, 5));
+	shader.setMat4("model", modelPalmerita1);
+	modelArr.at(11).Draw(shader);
+
+	glm::mat4 modelPalmerita2 = glm::translate(origin, glm::vec3(20, 2.7, 3));
+	modelPalmerita2 = glm::scale(modelPalmerita2, glm::vec3(5, 5, 5));
+	shader.setMat4("model", modelPalmerita2);
+	modelArr.at(11).Draw(shader);
+
+	glm::mat4 modelPalmerita3 = glm::translate(origin, glm::vec3(-15, 2.7, 5));
+	modelPalmerita3 = glm::scale(modelPalmerita3, glm::vec3(5, 5, 5));
+	shader.setMat4("model", modelPalmerita3);
+	modelArr.at(11).Draw(shader);
+
+	glm::mat4 modelPalmerita4 = glm::translate(origin, glm::vec3(-15, 2.7, -10));
+	modelPalmerita4 = glm::scale(modelPalmerita4, glm::vec3(5, 5, 5));
+	shader.setMat4("model", modelPalmerita4);
+	modelArr.at(11).Draw(shader);
+
+	glm::mat4 modelLampara = glm::translate(origin, glm::vec3(-10, 2, 12));
+	modelLampara = glm::scale(modelLampara, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara1 = glm::translate(origin, glm::vec3(-10, 2, -10));
+	modelLampara1 = glm::scale(modelLampara1, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara1);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara2 = glm::translate(origin, glm::vec3(17, 2, -10));
+	modelLampara2 = glm::scale(modelLampara2, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara2);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara3 = glm::translate(origin, glm::vec3(17, 2, 12));
+	modelLampara3 = glm::scale(modelLampara3, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara3);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara4 = glm::translate(origin, glm::vec3(-17.5, 2, -18.5));
+	modelLampara4 = glm::scale(modelLampara4, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara4);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara5 = glm::translate(origin, glm::vec3(-7.5, 2, -18.5));
+	modelLampara5 = glm::scale(modelLampara5, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara5);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara6 = glm::translate(origin, glm::vec3(2.5, 2, -18.5));
+	modelLampara6 = glm::scale(modelLampara6, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara6);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara7 = glm::translate(origin, glm::vec3(12.5, 2, -18.5));
+	modelLampara7 = glm::scale(modelLampara7, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara7);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara8 = glm::translate(origin, glm::vec3(22.5, 2, -18.5));
+	modelLampara8 = glm::scale(modelLampara8, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara8);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLampara9 = glm::translate(origin, glm::vec3(32.5, 2, -18.5));
+	modelLampara9 = glm::scale(modelLampara9, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLampara9);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras4 = glm::translate(origin, glm::vec3(-17.5, 2, -38.5));
+	modelLamparaAtras4 = glm::scale(modelLamparaAtras4, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras4);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras5 = glm::translate(origin, glm::vec3(-7.5, 2, -38.5));
+	modelLamparaAtras5 = glm::scale(modelLamparaAtras5, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras5);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras6 = glm::translate(origin, glm::vec3(2.5, 2, -38.5));
+	modelLamparaAtras6 = glm::scale(modelLamparaAtras6, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras6);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras7 = glm::translate(origin, glm::vec3(12.5, 2, -38.5));
+	modelLamparaAtras7 = glm::scale(modelLamparaAtras7, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras7);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras8 = glm::translate(origin, glm::vec3(22.5, 2, -38.5));
+	modelLamparaAtras8 = glm::scale(modelLamparaAtras8, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras8);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelLamparaAtras9 = glm::translate(origin, glm::vec3(32.5, 2, -38.5));
+	modelLamparaAtras9 = glm::scale(modelLamparaAtras9, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelLamparaAtras9);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelFuente = glm::translate(origin, glm::vec3(45, -2, 50));
+	modelFuente = glm::scale(modelFuente, glm::vec3(0.1f, 0.1f, 0.1f));
+	shader.setMat4("model", modelFuente);
+	modelArr.at(16).Draw(shader);
+
+	glm::mat4 modelArbolSaul = glm::translate(origin, glm::vec3(50, -2, 25));
+	modelArbolSaul = glm::scale(modelArbolSaul, glm::vec3(0.1f, 0.1f, 0.1f));
+	shader.setMat4("model", modelArbolSaul);
+	modelArr.at(13).Draw(shader);
+
+	glm::mat4 modelSauce = glm::translate(origin, glm::vec3(50, -2, -40));
+	modelSauce = glm::scale(modelSauce, glm::vec3(.25f, .35f, .25f));
+	shader.setMat4("model", modelSauce);
+	modelArr.at(14).Draw(shader);
+
+	glm::mat4 modelPlanta = glm::translate(origin, glm::vec3(-37, 2.3, 25));
+	modelPlanta = glm::scale(modelPlanta, glm::vec3(2.0f, 2.0f, 2.0f));
+	shader.setMat4("model", modelPlanta);
+	modelArr.at(15).Draw(shader);
+
+	glm::mat4 modelPlanta2 = glm::translate(origin, glm::vec3(-37, 2.3, -3));
+	modelPlanta2 = glm::scale(modelPlanta2, glm::vec3(2.0f, 2.0f, 2.0f));
+	shader.setMat4("model", modelPlanta2);
+	modelArr.at(15).Draw(shader);
+
+	glm::mat4 modelPlanta3 = glm::translate(origin, glm::vec3(-37, 2.3, 5));
+	modelPlanta3 = glm::scale(modelPlanta3, glm::vec3(2.0f, 2.0f, 2.0f));
+	shader.setMat4("model", modelPlanta3);
+	modelArr.at(15).Draw(shader);
+
+	glm::mat4 modelCasaLamp4 = glm::translate(origin, glm::vec3(-40, 2, -20));
+	modelCasaLamp4 = glm::scale(modelCasaLamp4, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp4);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp5 = glm::translate(origin, glm::vec3(-40, 2, 0));
+	modelCasaLamp5 = glm::scale(modelCasaLamp5, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp5);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp6 = glm::translate(origin, glm::vec3(-40, 2, 20));
+	modelCasaLamp6 = glm::scale(modelCasaLamp6, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp6);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp7 = glm::translate(origin, glm::vec3(-40, 2, 40));
+	modelCasaLamp7 = glm::scale(modelCasaLamp7, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp7);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp8 = glm::translate(origin, glm::vec3(9, 2, 48));
+	modelCasaLamp8 = glm::scale(modelCasaLamp8, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp8);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp9 = glm::translate(origin, glm::vec3(24, 2, 48));
+	modelCasaLamp9 = glm::scale(modelCasaLamp9, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp9);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp10 = glm::translate(origin, glm::vec3(-6, 2, 48));
+	modelCasaLamp10 = glm::scale(modelCasaLamp10, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp10);
+	modelArr.at(12).Draw(shader);
+
+	glm::mat4 modelCasaLamp11 = glm::translate(origin, glm::vec3(-21, 2, 48));
+	modelCasaLamp11 = glm::scale(modelCasaLamp11, glm::vec3(3.0f, 3.0f, 3.0f));
+	shader.setMat4("model", modelCasaLamp11);
+	modelArr.at(12).Draw(shader);
+
+	/*glm::mat4 modelShrek = glm::scale(origin, glm::vec3(0.2f, 0.2f, 0.2f));
+	modelShrek = glm::translate(origin, glm::vec3(0.5f, -1.0f, 0.0f));
+	shader.setMat4("model", modelShrek);
+	modelArr.at(13).Draw(shader);*/
 
 	// Draw skybox as last
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
@@ -356,32 +646,63 @@ int main()
 	Shader SkyBoxshader("Shaders/SkyBox.vs", "Shaders/SkyBox.frag");
 	
 	/*Carga de Modelos*/
-	Model pisoModel = ((char *)"Models/piso/piso.obj");
-	Model modelEdificio = ((char *)"Models/edificio/edificio.obj");
-	Model arbol = ((char *)"Models/arbol/arbol.obj");
-	Model modelShrek = ((char *)"Models/Shrek/Shrek.obj");
-	Model modelBuilding = ((char *)"Models/Edificio/Building.obj");
+	Model modelPiso = ((char *)"Models/piso/piso.obj");
+	Model modelAlberca = ((char *)"Models/alberca/pool.obj");
+	Model modelCasa = ((char *)"Models/depas/casa.obj");
+	Model modelBuilding = ((char *)"Models/edificio/Building.obj");
+	Model modelEdificio = ((char *)"Models/Edificio/Building.obj");
 	Model modelEdificio2 = ((char *)"Models/edificio02/edificio2.obj");
-	Model ModelAccumulaTownBuilding = ((char *)"Models/Pkedificio/AccumulaTownBuilding.obj");
+	Model modelResidencia = ((char *)"Models/Edificio2/residencia.obj");
+	Model modelHouseF = ((char *)"Models/house/houseF.obj");
+	Model modelArbol = ((char *)"Models/arbol/arbol.obj");
+	Model modelArbol1 = ((char *)"Models/arbol1/arbol1.obj");
+	Model modelArbolGnomo = ((char *)"Models/arbol2/arbol2.obj");
+	Model modelPalmerita = ((char *)"Models/palmera1/palmera1.obj");
+	Model modelLampara = ((char *)"Models/lampara/lampara.obj");
+	Model modelShrek = ((char *)"Models/Shrek/Shrek.obj");
+	Model modelArbolSaul = ((char *)"Models/arbol3/arbol3.obj");
+	Model modelSauce = ((char *)"Models/arbol4/arbol4.obj");
+	Model modelPlanta = ((char *)"Models/planta/planta.obj");
+	Model modelFuente = ((char *)"Models/fuente/fuente.obj");
 
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
-	modelArr.push_back(pisoModel); //0
-	modelArr.push_back(modelEdificio); //1
-	modelArr.push_back(arbol); //2
-	modelArr.push_back(modelShrek); //3
+	modelArr.push_back(modelPiso); //0
+	modelArr.push_back(modelAlberca); //1
+	modelArr.push_back(modelCasa); //2
+	modelArr.push_back(modelEdificio); //3
 	modelArr.push_back(modelBuilding); //4
 	modelArr.push_back(modelEdificio2); //5
-	modelArr.push_back(ModelAccumulaTownBuilding); //6
+	modelArr.push_back(modelResidencia); //6 -> no sirve
+	modelArr.push_back(modelHouseF); //7
+	modelArr.push_back(modelArbol); //8
+	modelArr.push_back(modelArbol1); //9 -> no sirve
+	modelArr.push_back(modelArbolGnomo); //10
+	modelArr.push_back(modelPalmerita); //11
+	modelArr.push_back(modelLampara); //12
+	modelArr.push_back(modelArbolSaul); //13
+	modelArr.push_back(modelSauce); // 14
+	modelArr.push_back(modelPlanta); // 15
+	modelArr.push_back(modelFuente); // 16
+	/******************DESPUES DE AQUI VAN SUS MODELOS***********************/
+	modelArr.push_back(modelShrek); //17
 
 	// Load textures
 	vector<const GLchar*> faces;
-	faces.push_back("SkyBox/right.tga");
+	/*SKYBOX VALENCIA*/
+	/*faces.push_back("SkyBox/right.tga");
 	faces.push_back("SkyBox/left.tga");
 	faces.push_back("SkyBox/top.tga");
 	faces.push_back("SkyBox/bottom.tga");
 	faces.push_back("SkyBox/back.tga");
-	faces.push_back("SkyBox/front.tga");
+	faces.push_back("SkyBox/front.tga");*/
+	/*OTRO*/
+	faces.push_back("SkyBox/Others/purplenebula_rt.tga");
+	faces.push_back("SkyBox/Others/purplenebula_lf.tga");
+	faces.push_back("SkyBox/Others/purplenebula_up.tga");
+	faces.push_back("SkyBox/Others/purplenebula_dn.tga");
+	faces.push_back("SkyBox/Others/purplenebula_bk.tga");
+	faces.push_back("SkyBox/Others/purplenebula_ft.tga");
 
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
     
