@@ -62,11 +62,22 @@ unsigned int	t_smile,
 				t_caja,
 				t_caja_brillo;
 
-//For model
+//For Sherksss
+float rotShrek = 0.0f;
+//Variables para animacion de Avion
 bool animacion = false;
-float movAuto_z = 0.0f;
-float movAuto_y = -1.7f;
-bool avanza = true;
+float movAvion_x = -35.0f,	
+	  movAvion_y = 1.5f,
+	  movAvion_z = -60.0f,
+	  avionRotY = 180.0f;
+//Variables para animacion del Lambo
+bool lambo = false;
+float movAutoX = -25.0f,
+	  movAutoY = -1.7f, 
+      movAutoZ = -55.0f,
+	  radio    =  13.2f,
+      rotModel =  0.0f;
+
 
 void sonido() {
 
@@ -193,9 +204,101 @@ void myData()
 }
 
 int mov_auto = 0;
+int mov_avion = 0;
+float velocidad = 0.5;
 void animate(void)
 {
-	
+	if (lambo) {
+		if (mov_auto == 0) {
+			movAutoZ += velocidad;
+			if (movAutoZ >= -35.50f)
+				mov_auto = 1;
+		}
+		if (mov_auto == 1) {
+			rotModel = -90;
+			movAutoX += velocidad;
+			if (movAutoX >= 39.0f)
+				mov_auto = 2;
+		}
+		 if(mov_auto == 2){
+			 rotModel = 0;
+			 movAutoZ += velocidad;
+			if (movAutoZ >= 23.5f)
+		    	mov_auto = 3;
+		}
+		
+		 if (mov_auto == 3) {
+			rotModel = 90.0f;
+			movAutoX -= velocidad;
+			if (movAutoX <= -2.0f)
+				mov_auto = 4;
+		}
+		
+		if (mov_auto == 4){
+			rotModel += 3.0f;
+			movAutoX = (radio * cos(glm::radians(rotModel)) -2.0f);
+			movAutoZ = 23.0f + (radio * sin(glm::radians(rotModel))-radio);
+			if (rotModel == 360.0f) {
+				rotModel = 0.0f;
+				mov_auto = 4;
+			}
+		}
+
+
+	 }
+	if (animacion) {
+		if (mov_avion == 0)
+		{
+			//avionRotY = 0.0f;
+			movAvion_y += velocidad;
+			if (movAvion_y >= 35.0f) {
+				mov_avion = 1;
+			}
+		}
+
+		if (mov_avion == 1)
+		{
+			movAvion_z += velocidad;
+			//avionRotY = 90.0f;
+			if (movAvion_z >= 35.0f)
+				mov_avion = 2;
+		}
+
+		if (mov_avion == 2)
+		{
+			movAvion_x += velocidad;
+			avionRotY = -90.0f;
+			if (movAvion_x >= 40.0f)
+				mov_avion = 3;
+		}  
+
+		if (mov_avion == 3)
+		{
+			movAvion_z -= velocidad;
+			avionRotY = -180.0f;
+			if (movAvion_z <= -60.0f)
+				mov_avion = 4;
+		}
+
+		if (mov_avion == 4)
+		{
+			movAvion_x -= velocidad;
+			avionRotY = 90.0f;
+			if (movAvion_x <= -35.0f)
+				mov_avion = 5;
+		}
+
+		if (mov_avion == 5)
+		{
+			avionRotY = 180.0f;
+			//if (movAvion_z <= 30.0f)
+			mov_avion = 1;
+		}
+	}
+	printf("movX %f  \n ", movAutoX );
+	//printf("movY %f  \n ", movAutoY); 
+	printf("movZ %f  \n ", movAutoZ); 
+
 }
 
 void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Model> modelArr)
@@ -245,18 +348,23 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	/*LISTA ORDEN ARREGLO
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
-	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17 
+	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
+	modelLlantas -> 21
 	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
 	origin = glm::mat4(1.0f);
+	//Temporal para manipulacion del modelo Lambo
+	glm::mat4 tmp = glm::mat4(1.0f);
+
+
 
 	model = glm::translate(origin, glm::vec3(0.0f, -1.8f, -1.0f));
 	model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
 	shader.setMat4("model", model);
 	modelArr.at(0).Draw(shader);
 
-	glm::mat4 modelAlberca = glm::translate(origin, glm::vec3(0, 0.7, 0));
+	glm::mat4 modelAlberca = glm::translate(origin, glm::vec3(57, -1.7, 38));
 	modelAlberca = glm::scale(modelAlberca, glm::vec3(.1f, .1f, .1f));
 	shader.setMat4("model", modelAlberca);
 	modelArr.at(1).Draw(shader);
@@ -276,13 +384,13 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelCasa2);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa3 = glm::translate(origin, glm::vec3(50.0f, -1.7f, 0.0f));
+	glm::mat4 modelCasa3 = glm::translate(origin, glm::vec3(50.0f, -1.7f, 1.0f));
 	modelCasa3 = glm::rotate(modelCasa3, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f)); 
 	modelCasa3 = glm::scale(modelCasa3, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa3);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa7 = glm::translate(origin, glm::vec3(50.0f, -1.7f, -20.0f));
+	glm::mat4 modelCasa7 = glm::translate(origin, glm::vec3(50.0f, -1.7f, -19.0f));
 	modelCasa7 = glm::rotate(modelCasa7, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 	modelCasa7 = glm::scale(modelCasa7, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa7);
@@ -408,37 +516,37 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelPalmerita1);
 	modelArr.at(11).Draw(shader);
 
-	glm::mat4 modelPalmerita2 = glm::translate(origin, glm::vec3(20, 2.7, 3));
+	glm::mat4 modelPalmerita2 = glm::translate(origin, glm::vec3(22, 2.7, 3));
 	modelPalmerita2 = glm::scale(modelPalmerita2, glm::vec3(5, 5, 5));
 	shader.setMat4("model", modelPalmerita2);
 	modelArr.at(11).Draw(shader);
 
-	glm::mat4 modelPalmerita3 = glm::translate(origin, glm::vec3(-15, 2.7, 5));
+	glm::mat4 modelPalmerita3 = glm::translate(origin, glm::vec3(-18, 2.7, 5));
 	modelPalmerita3 = glm::scale(modelPalmerita3, glm::vec3(5, 5, 5));
 	shader.setMat4("model", modelPalmerita3);
 	modelArr.at(11).Draw(shader);
 
-	glm::mat4 modelPalmerita4 = glm::translate(origin, glm::vec3(-15, 2.7, -10));
+	glm::mat4 modelPalmerita4 = glm::translate(origin, glm::vec3(-18, 2.7, -10));
 	modelPalmerita4 = glm::scale(modelPalmerita4, glm::vec3(5, 5, 5));
 	shader.setMat4("model", modelPalmerita4);
 	modelArr.at(11).Draw(shader);
 
-	glm::mat4 modelLampara = glm::translate(origin, glm::vec3(-10, 2, 12));
+	glm::mat4 modelLampara = glm::translate(origin, glm::vec3(-11, 2, 12));
 	modelLampara = glm::scale(modelLampara, glm::vec3(3.0f, 3.0f, 3.0f));
 	shader.setMat4("model", modelLampara);
 	modelArr.at(12).Draw(shader);
 
-	glm::mat4 modelLampara1 = glm::translate(origin, glm::vec3(-10, 2, -10));
+	glm::mat4 modelLampara1 = glm::translate(origin, glm::vec3(-11, 2, -10));
 	modelLampara1 = glm::scale(modelLampara1, glm::vec3(3.0f, 3.0f, 3.0f));
 	shader.setMat4("model", modelLampara1);
 	modelArr.at(12).Draw(shader);
 
-	glm::mat4 modelLampara2 = glm::translate(origin, glm::vec3(17, 2, -10));
+	glm::mat4 modelLampara2 = glm::translate(origin, glm::vec3(19, 2, -10));
 	modelLampara2 = glm::scale(modelLampara2, glm::vec3(3.0f, 3.0f, 3.0f));
 	shader.setMat4("model", modelLampara2);
 	modelArr.at(12).Draw(shader);
 
-	glm::mat4 modelLampara3 = glm::translate(origin, glm::vec3(17, 2, 12));
+	glm::mat4 modelLampara3 = glm::translate(origin, glm::vec3(19, 2, 12));
 	modelLampara3 = glm::scale(modelLampara3, glm::vec3(3.0f, 3.0f, 3.0f));
 	shader.setMat4("model", modelLampara3);
 	modelArr.at(12).Draw(shader);
@@ -503,12 +611,12 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelLamparaAtras9);
 	modelArr.at(12).Draw(shader);
 
-	glm::mat4 modelFuente = glm::translate(origin, glm::vec3(45, -2, 50));
+	glm::mat4 modelFuente = glm::translate(origin, glm::vec3(-7.5f, -2.0f, 22.5f));
 	modelFuente = glm::scale(modelFuente, glm::vec3(0.1f, 0.1f, 0.1f));
 	shader.setMat4("model", modelFuente);
 	modelArr.at(16).Draw(shader);
 
-	glm::mat4 modelArbolSaul = glm::translate(origin, glm::vec3(50, -2, 25));
+	glm::mat4 modelArbolSaul = glm::translate(origin, glm::vec3(50, -2, 23.0));
 	modelArbolSaul = glm::scale(modelArbolSaul, glm::vec3(0.1f, 0.1f, 0.1f));
 	shader.setMat4("model", modelArbolSaul);
 	modelArr.at(13).Draw(shader);
@@ -573,11 +681,54 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelCasaLamp11);
 	modelArr.at(12).Draw(shader);
 
-	/*glm::mat4 modelShrek = glm::scale(origin, glm::vec3(0.2f, 0.2f, 0.2f));
-	modelShrek = glm::translate(origin, glm::vec3(0.5f, -1.0f, 0.0f));
-	shader.setMat4("model", modelShrek);
-	modelArr.at(13).Draw(shader);*/
+	glm::mat4 modelAvion = glm::scale(modelAvion, glm::vec3(0.5f, 0.5f, 0.5f));
+	modelAvion = glm::translate(origin, glm::vec3(movAvion_x, movAvion_y, movAvion_z));
+	modelAvion = glm::rotate(modelAvion, glm::radians(avionRotY), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", modelAvion);
+	modelArr.at(18).Draw(shader);
 
+	glm::mat4 modelPlataforma = glm::scale(modelPlataforma, glm::vec3(1.0f, 1.0f, 1.0f));
+	modelAvion = glm::translate(origin, glm::vec3(-35.0f, -0.5f ,-55.0f ));
+	shader.setMat4("model", modelAvion);
+	modelArr.at(19).Draw(shader);
+
+
+	
+
+	//Lambo
+	glm::mat4 modelLambo = glm::translate(origin, glm::vec3(movAutoX, movAutoY,movAutoZ));
+	modelLambo = glm::rotate(modelLambo, glm::radians(-rotModel - 1800.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	tmp = modelLambo = glm::scale(modelLambo, glm::vec3(1.5f, 1.5f, 1.5f));
+	modelLambo = glm::scale(modelLambo, glm::vec3(0.01f, 0.01f, 0.01f));
+	shader.setMat4("model", modelLambo);
+	modelArr.at(20).Draw(shader);
+
+	glm::mat4 modelLlantas = glm::translate(tmp, glm::vec3(0.85f, 0.25f, 1.29f));
+	modelLlantas = glm::scale(modelLlantas, glm::vec3(0.01f, 0.01f, 0.01f));
+	shader.setMat4("model", modelLlantas);
+	modelArr.at(21).Draw(shader);	//Izq delantera
+
+	modelLlantas = glm::translate(tmp, glm::vec3(-0.85f, 0.25f, 1.29f));
+	modelLlantas = glm::scale(modelLlantas, glm::vec3(0.01f, 0.01f, 0.01f));
+	modelLlantas = glm::rotate(modelLlantas, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", modelLlantas);
+	modelArr.at(21).Draw(shader);	//Der delantera
+
+	modelLlantas = glm::translate(tmp, glm::vec3(-0.85f, 0.25f, -1.45f));
+	modelLlantas = glm::scale(modelLlantas, glm::vec3(0.01f, 0.01f, 0.01f));
+	modelLlantas = glm::rotate(modelLlantas, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", modelLlantas);
+	modelArr.at(21).Draw(shader); //Der trasera
+
+	modelLlantas = glm::translate(tmp, glm::vec3(0.85f, 0.25f, -1.45f));
+	modelLlantas = glm::scale(modelLlantas, glm::vec3(0.01f, 0.01f, 0.01f));
+	shader.setMat4("model", modelLlantas);
+	modelArr.at(21).Draw(shader);	//Izq trase
+	//modelShrek = glm::scale(origin, glm::vec3(0.4f, 0.4f, 0.4f));
+	glm::mat4 modelShrek = glm::translate(origin, glm::vec3(-1.0f, 9.0f, 7.5f));
+	modelShrek = glm::rotate(modelShrek,glm::radians(rotShrek),glm::vec3(0.0f,1.0f,0.0f));
+	shader.setMat4("model", modelShrek);
+	modelArr.at(17).Draw(shader);
 	// Draw skybox as last
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
 	skyboxShader.use();
@@ -664,6 +815,10 @@ int main()
 	Model modelSauce = ((char *)"Models/arbol4/arbol4.obj");
 	Model modelPlanta = ((char *)"Models/planta/planta.obj");
 	Model modelFuente = ((char *)"Models/fuente/fuente.obj");
+	Model modelAvion = ((char *)"Models/avion/avion.obj");
+	Model modelPlataforma = ((char *)"Models/plataforma/plataforma.obj");
+	Model modelLambo = ((char *)"Models/Lambo/carroseria.obj");
+	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
 
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
@@ -686,6 +841,10 @@ int main()
 	modelArr.push_back(modelFuente); // 16
 	/******************DESPUES DE AQUI VAN SUS MODELOS***********************/
 	modelArr.push_back(modelShrek); //17
+	modelArr.push_back(modelAvion); // 18
+	modelArr.push_back(modelPlataforma); // 19
+	modelArr.push_back(modelLambo); // 20
+	modelArr.push_back(modelLlantas); // 21
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -721,7 +880,8 @@ int main()
         // -----
         //my_input(window);
 		animate();
-
+		//for sherk
+		rotShrek += 1.0;
         // render
         // Backgound color
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -768,10 +928,13 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 		animacion = !animacion;
-		//animacion ^= true;
-		if(movAuto_z >= 10.0f)
-			movAuto_z = 0.0f;
+		////animacion ^= true;
+		//if(movAuto_z >= 10.0f)
+		//	movAuto_z = 0.0f;
 	}
+	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+		lambo = !lambo;
+
 		
 }
 

@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 02.05.2020 03:14:57
+# File Created: 07.05.2020 20:28:56
 
-newmtl Material__28
+newmtl pool_Material__28
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -15,7 +15,7 @@ newmtl Material__28
 	map_Ka texture-sumur.jpg
 	map_Kd texture-sumur.jpg
 
-newmtl Material__27
+newmtl Material__26
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -26,10 +26,10 @@ newmtl Material__27
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka tela-plana-rayas-blanca-roja-23mm.jpg
-	map_Kd tela-plana-rayas-blanca-roja-23mm.jpg
+	map_Ka tobogan.jpg
+	map_Kd tobogan.jpg
 
-newmtl Material__30
+newmtl pool_Material__30
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -43,7 +43,7 @@ newmtl Material__30
 	map_Ka Concrete_Aggregate_Smoke.jpg
 	map_Kd Concrete_Aggregate_Smoke.jpg
 
-newmtl pool_07___Default
+newmtl pool_pool_07___Default
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -57,7 +57,7 @@ newmtl pool_07___Default
 	map_Ka Concret.jpg
 	map_Kd Concret.jpg
 
-newmtl Material__29
+newmtl pool_Material__29
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -71,7 +71,7 @@ newmtl Material__29
 	map_Ka Concrete_Aggregate_Smoke.jpg
 	map_Kd Concrete_Aggregate_Smoke.jpg
 
-newmtl Material__26
+newmtl pool_Material__26
 	Ns 10.0000
 	Ni 1.5000
 	d 1.0000
@@ -96,5 +96,5 @@ newmtl Material__25
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka ventana.jpeg
-	map_Kd ventana.jpeg
+	map_Ka water2.jpg
+	map_Kd water2.jpg
