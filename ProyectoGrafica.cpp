@@ -80,6 +80,19 @@ float movAutoX = -25.0f,
 //Para modelo virus
 float movVirusY =1.0f;
 
+//Animacion globo -11, 2, -10
+float
+movGlobo_x = -12.f,
+movGlobo_y = 1.0f,
+movGlobo_z = -10.0f,
+orientaG = 0.0f;
+bool	animacionG = false,
+recorridoG1 = true,
+recorridoG2 = false,
+recorridoG3 = false,
+recorridoG4 = false,
+recorridoG5 = false;
+
 
 void sonido() {
 
@@ -311,6 +324,68 @@ void animate(void)
 			mov_avion = 1;
 		}
 	}
+
+	if (animacionG)
+	{
+		//animacion del Globo
+		if (recorridoG1)
+		{
+			movGlobo_y += 0.3f;//velocidad
+			//orientaG = 180.0f;//giro
+			if (movGlobo_y > 0.6f)//cuando se mueva hasta..
+			{
+				recorridoG1 = false;//deja el recorrido1
+				recorridoG2 = true;//comienza el recorrido 2
+			}
+		}
+
+		if (recorridoG2)
+		{
+			movGlobo_y += 0.15;
+			movGlobo_x += 0.25;
+			orientaG = 30.96f;
+			if (movGlobo_x > 1.5f)
+			{
+				recorridoG2 = false;
+				recorridoG3 = true;
+			}
+		}
+
+		if (recorridoG3)
+		{
+			movGlobo_y += 0.15;
+			movGlobo_x -= 0.25;
+			orientaG = 30.96f;
+			if (movGlobo_x < -2.0f)
+			{
+				recorridoG3 = false;
+				recorridoG4 = true;
+			}
+		}
+		if (recorridoG4)
+		{
+			movGlobo_y += 0.15;
+			movGlobo_x += 0.25;
+			orientaG = 30.96f;
+			if (movGlobo_x > 4.0f)
+			{
+				recorridoG4 = false;
+				recorridoG5 = true;
+			}
+		}
+		if (recorridoG5)
+		{
+			movGlobo_y += 0.15;
+			movGlobo_x -= 0.25;
+			orientaG = 30.96f;
+			if (movGlobo_x < -2.0f)
+			{
+				recorridoG5 = false;
+				recorridoG1 = true;
+			}
+		}
+	}
+	
 	printf("movX %f  \n ", movAutoX );
 	//printf("movY %f  \n ", movAutoY); 
 	printf("movZ %f  \n ", movAutoZ); 
@@ -365,7 +440,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
 	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
-	modelLlantas -> 21, modelVirus ->22
+	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNiña -> 24
 	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
@@ -388,23 +463,23 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelAlberca);
 	modelArr.at(1).Draw(shader);
 
-	glm::mat4 modelCasa = glm::translate(origin, glm::vec3(0.0f, -1.7f, -25.0f));
+	glm::mat4 modelCasa = glm::translate(origin, glm::vec3(0.0f, -1.7f, -27.0f));
 	modelCasa = glm::scale(modelCasa, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa1 = glm::translate(origin, glm::vec3(20.0f, -1.7f, -25.0f));
+	glm::mat4 modelCasa1 = glm::translate(origin, glm::vec3(19.5f, -1.7f, -27.0f));
 	modelCasa1 = glm::scale(modelCasa1, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa1);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa2 = glm::translate(origin, glm::vec3(-20.0f, -1.7f, -25.0f));
+	glm::mat4 modelCasa2 = glm::translate(origin, glm::vec3(-19.5f, -1.7f, -27.0f));
 	modelCasa2 = glm::scale(modelCasa2, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa2);
 	modelArr.at(2).Draw(shader);
 
 	glm::mat4 modelCasa3 = glm::translate(origin, glm::vec3(50.0f, -1.7f, 1.0f));
-	modelCasa3 = glm::rotate(modelCasa3, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f)); 
+	modelCasa3 = glm::rotate(modelCasa3, glm::radians(90.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 	modelCasa3 = glm::scale(modelCasa3, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa3);
 	modelArr.at(2).Draw(shader);
@@ -415,17 +490,17 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelCasa7);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa4 = glm::translate(origin, glm::vec3(0.0f, -1.7f, -45.0f));
+	glm::mat4 modelCasa4 = glm::translate(origin, glm::vec3(0.0f, -1.7f, -48.0f));
 	modelCasa4 = glm::scale(modelCasa4, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa4);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa5 = glm::translate(origin, glm::vec3(20.0f, -1.7f, -45.0f));
+	glm::mat4 modelCasa5 = glm::translate(origin, glm::vec3(20.0f, -1.7f, -48.0f));
 	modelCasa5 = glm::scale(modelCasa5, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa5);
 	modelArr.at(2).Draw(shader);
 
-	glm::mat4 modelCasa6 = glm::translate(origin, glm::vec3(-20.0f, -1.7f, -45.0f));
+	glm::mat4 modelCasa6 = glm::translate(origin, glm::vec3(-20.0f, -1.7f, -48.0f));
 	modelCasa6 = glm::scale(modelCasa6, glm::vec3(2.0f, 6.0f, 2.0f));
 	shader.setMat4("model", modelCasa6);
 	modelArr.at(2).Draw(shader);
@@ -466,25 +541,25 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	shader.setMat4("model", modelEdificio7);
 	modelArr.at(5).Draw(shader);
 
-	glm::mat4 modelHouseF = glm::translate(origin, glm::vec3(-50, -1.5, 0));
+	glm::mat4 modelHouseF = glm::translate(origin, glm::vec3(-14.0f, -2.5f, -5.0f));
 	modelHouseF = glm::rotate(modelHouseF, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	modelHouseF = glm::scale(modelHouseF, glm::vec3(4.5f, 4.5f, 4.5f));
 	shader.setMat4("model", modelHouseF);
 	modelArr.at(7).Draw(shader);
 
-	glm::mat4 modelHouseF1 = glm::translate(origin, glm::vec3(-50, -1.5, -20));
+	glm::mat4 modelHouseF1 = glm::translate(origin, glm::vec3(-14.0f, -2.5f, 15.0f));
 	modelHouseF1 = glm::rotate(modelHouseF1, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	modelHouseF1 = glm::scale(modelHouseF1, glm::vec3(4.5f, 4.5f, 4.5f));
 	shader.setMat4("model", modelHouseF1);
 	modelArr.at(7).Draw(shader);
 
-	glm::mat4 modelHouseF2 = glm::translate(origin, glm::vec3(-50, -1.5, 20));
+	glm::mat4 modelHouseF2 = glm::translate(origin, glm::vec3(-14.0f, -2.5f, 35.0f));
 	modelHouseF2 = glm::rotate(modelHouseF2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	modelHouseF2 = glm::scale(modelHouseF2, glm::vec3(4.5f, 4.5f, 4.5f));
 	shader.setMat4("model", modelHouseF2);
 	modelArr.at(7).Draw(shader);
 
-	glm::mat4 modelHouseF3 = glm::translate(origin, glm::vec3(-50, -1.5, 40));
+	glm::mat4 modelHouseF3 = glm::translate(origin, glm::vec3(-14.0f, -2.5f, 55.0f));
 	modelHouseF3 = glm::rotate(modelHouseF3, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	modelHouseF3 = glm::scale(modelHouseF3, glm::vec3(4.5f, 4.5f, 4.5f));
 	shader.setMat4("model", modelHouseF3);
@@ -765,6 +840,20 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 		modelVirus = tmp;
 	}
 
+	//globo
+	glm::mat4
+		modelGlobo = glm::rotate(modelGlobo, glm::radians(0.0f), glm::vec3(0.0f, 0.3f, 0.0f));
+	modelGlobo = glm::translate(glm::mat4(1.0f), glm::vec3(movGlobo_x, movGlobo_y, movGlobo_z));
+	modelGlobo = glm::scale(modelGlobo, glm::vec3(0.5f, 0.5f, 0.5f));
+	shader.setMat4("model", modelGlobo);
+	modelArr.at(23).Draw(shader);
+	//niña
+	glm::mat4
+	modelNiña = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
+	modelNiña = glm::rotate(modelNiña, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelNiña = glm::scale(modelNiña, glm::vec3(0.02f, 0.02f, 0.02f));
+	shader.setMat4("model", modelNiña);
+	modelArr.at(24).Draw(shader);
 
 
 	// Draw skybox as last
@@ -842,7 +931,7 @@ int main()
 	Model modelEdificio = ((char *)"Models/Edificio/Building.obj");
 	Model modelEdificio2 = ((char *)"Models/edificio02/edificio2.obj");
 	Model modelResidencia = ((char *)"Models/Edificio2/residencia.obj");
-	Model modelHouseF = ((char *)"Models/house/houseF.obj");
+	Model modelHouseF = ((char *)"Models/house/house.obj");
 	Model modelArbol = ((char *)"Models/arbol/arbol.obj");
 	Model modelArbol1 = ((char *)"Models/arbol1/arbol1.obj");
 	Model modelArbolGnomo = ((char *)"Models/arbol2/arbol2.obj");
@@ -858,7 +947,8 @@ int main()
 	Model modelLambo = ((char *)"Models/Lambo/carroseria.obj");
 	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
 	Model modelVirus = ((char *) "Models/virus/covid.obj");
-
+	Model modelGlobo = ((char *)"Models/globo/globo.obj");
+	Model modelNiña = ((char *)"Models/niña/niña.obj");
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
 	modelArr.push_back(modelPiso); //0
@@ -885,6 +975,8 @@ int main()
 	modelArr.push_back(modelLambo); // 20
 	modelArr.push_back(modelLlantas); // 21
 	modelArr.push_back(modelVirus); // 22
+	modelArr.push_back(modelGlobo); // 23
+	modelArr.push_back(modelNiña); // 24
 
 
 	// Load textures
@@ -976,6 +1068,14 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		lambo = !lambo;
 
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	{
+		//animacionG ^= true; -11, 2, -10
+		animacionG = !animacionG;
+		movGlobo_x = -12.0f;
+		movGlobo_y = 1.0f;
+		movGlobo_z = -10.0f;
+	}
 		
 }
 
