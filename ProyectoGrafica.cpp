@@ -849,10 +849,10 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelArr.at(23).Draw(shader);
 	//ni�a
 	glm::mat4
-	modelNi�a = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
-	modelNi�a = glm::rotate(modelNi�a, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelNi�a = glm::scale(modelNi�a, glm::vec3(0.02f, 0.02f, 0.02f));
-	shader.setMat4("model", modelNi�a);
+	modelNina = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
+	modelNina = glm::rotate(modelNina, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelNina = glm::scale(modelNina, glm::vec3(0.02f, 0.02f, 0.02f));
+	shader.setMat4("model", modelNina);
 	modelArr.at(24).Draw(shader);
 
 
@@ -948,7 +948,7 @@ int main()
 	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
 	Model modelVirus = ((char *) "Models/virus/covid.obj");
 	Model modelGlobo = ((char *)"Models/globo/globo.obj");
-	Model modelNi�a = ((char *)"Models/ni�a/ni�a.obj");
+	Model modelNina = ((char *)"Models/nina/nina.obj");
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
 	modelArr.push_back(modelPiso); //0
@@ -976,7 +976,7 @@ int main()
 	modelArr.push_back(modelLlantas); // 21
 	modelArr.push_back(modelVirus); // 22
 	modelArr.push_back(modelGlobo); // 23
-	modelArr.push_back(modelNi�a); // 24
+	modelArr.push_back(modelNina); // 24
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -1071,6 +1071,14 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	}
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		lambo = !lambo;
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	{
+		//animacionG ^= true; -11, 2, -10
+		animacionG = !animacionG;
+		movGlobo_x = -12.0f;
+		movGlobo_y = 1.0f;
+		movGlobo_z = -10.0f;
+	}
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 		sonido();
 }

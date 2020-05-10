@@ -6,11 +6,6 @@ c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(344): warni
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(356): warning C4305: '+=': truncamiento de 'double' a 'float'
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(367): warning C4305: '+=': truncamiento de 'double' a 'float'
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(378): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(852): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(853): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(854): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(855): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(951): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(979): error C3872: '0xbf': este carácter no se permite en un identificador
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1103): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1110): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1111): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+  CGLab.vcxproj -> C:\Users\aleja\source\repos\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe
