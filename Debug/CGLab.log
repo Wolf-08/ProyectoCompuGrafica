@@ -1,11 +1,11 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (CGLab.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   ProyectoGrafica.cpp
 c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': redefinición de macro
-  c:\users\saul\desktop\lab grafica\proyectocompugrafica\include\glfw3.h(98): note: vea la definición anterior de 'APIENTRY'
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(344): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(356): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(367): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(378): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(1107): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\saul\desktop\lab grafica\proyectocompugrafica\proyectografica.cpp(1114): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-  CGLab.vcxproj -> C:\Users\Saul\Desktop\lab grafica\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe
+  c:\users\aleja\source\repos\proyectocompugrafica\include\glfw3.h(98): note: vea la definición anterior de 'APIENTRY'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(344): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(356): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(367): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(378): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1111): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+  CGLab.vcxproj -> C:\Users\aleja\source\repos\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe

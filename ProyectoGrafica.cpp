@@ -440,7 +440,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
 	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
-	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNiña -> 24
+	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNiï¿½a -> 24
 	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
@@ -847,12 +847,12 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelGlobo = glm::scale(modelGlobo, glm::vec3(0.5f, 0.5f, 0.5f));
 	shader.setMat4("model", modelGlobo);
 	modelArr.at(23).Draw(shader);
-	//niña
+	//niï¿½a
 	glm::mat4
-	modelNiña = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
-	modelNiña = glm::rotate(modelNiña, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelNiña = glm::scale(modelNiña, glm::vec3(0.02f, 0.02f, 0.02f));
-	shader.setMat4("model", modelNiña);
+	modelNina = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
+	modelNina = glm::rotate(modelNina, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelNina = glm::scale(modelNina, glm::vec3(0.02f, 0.02f, 0.02f));
+	shader.setMat4("model", modelNina);
 	modelArr.at(24).Draw(shader);
 
 
@@ -948,7 +948,7 @@ int main()
 	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
 	Model modelVirus = ((char *) "Models/virus/covid.obj");
 	Model modelGlobo = ((char *)"Models/globo/globo.obj");
-	Model modelNiña = ((char *)"Models/niña/niña.obj");
+	Model modelNina = ((char *)"Models/nina/nina.obj");
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
 	modelArr.push_back(modelPiso); //0
@@ -976,8 +976,7 @@ int main()
 	modelArr.push_back(modelLlantas); // 21
 	modelArr.push_back(modelVirus); // 22
 	modelArr.push_back(modelGlobo); // 23
-	modelArr.push_back(modelNiña); // 24
-
+	modelArr.push_back(modelNina); // 24
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -1060,8 +1059,6 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
-
-
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		lightPosition.z -=0.5f;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
@@ -1075,7 +1072,6 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	}
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		lambo = !lambo;
-
 	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
 	{
 		//animacionG ^= true; -11, 2, -10
