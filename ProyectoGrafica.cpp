@@ -440,7 +440,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
 	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
-	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNiña -> 24
+	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNiï¿½a -> 24
 	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
@@ -847,12 +847,12 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelGlobo = glm::scale(modelGlobo, glm::vec3(0.5f, 0.5f, 0.5f));
 	shader.setMat4("model", modelGlobo);
 	modelArr.at(23).Draw(shader);
-	//niña
+	//niï¿½a
 	glm::mat4
-	modelNiña = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
-	modelNiña = glm::rotate(modelNiña, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	modelNiña = glm::scale(modelNiña, glm::vec3(0.02f, 0.02f, 0.02f));
-	shader.setMat4("model", modelNiña);
+	modelNiï¿½a = glm::translate(glm::mat4(1.0f), glm::vec3(-12.7f, -1.7f, -8.5f));
+	modelNiï¿½a = glm::rotate(modelNiï¿½a, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelNiï¿½a = glm::scale(modelNiï¿½a, glm::vec3(0.02f, 0.02f, 0.02f));
+	shader.setMat4("model", modelNiï¿½a);
 	modelArr.at(24).Draw(shader);
 
 
@@ -948,7 +948,7 @@ int main()
 	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
 	Model modelVirus = ((char *) "Models/virus/covid.obj");
 	Model modelGlobo = ((char *)"Models/globo/globo.obj");
-	Model modelNiña = ((char *)"Models/niña/niña.obj");
+	Model modelNiï¿½a = ((char *)"Models/niï¿½a/niï¿½a.obj");
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
 	modelArr.push_back(modelPiso); //0
@@ -976,8 +976,7 @@ int main()
 	modelArr.push_back(modelLlantas); // 21
 	modelArr.push_back(modelVirus); // 22
 	modelArr.push_back(modelGlobo); // 23
-	modelArr.push_back(modelNiña); // 24
-
+	modelArr.push_back(modelNiï¿½a); // 24
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -989,13 +988,20 @@ int main()
 	faces.push_back("SkyBox/back.tga");
 	faces.push_back("SkyBox/front.tga");*/
 	/*OTRO*/
-	faces.push_back("SkyBox/Others/purplenebula_rt.tga");
+	/*faces.push_back("SkyBox/Others/purplenebula_rt.tga");
 	faces.push_back("SkyBox/Others/purplenebula_lf.tga");
 	faces.push_back("SkyBox/Others/purplenebula_up.tga");
 	faces.push_back("SkyBox/Others/purplenebula_dn.tga");
 	faces.push_back("SkyBox/Others/purplenebula_bk.tga");
 	faces.push_back("SkyBox/Others/purplenebula_ft.tga");
-
+*/
+	/*Otro*/
+	faces.push_back("SkyBox/Others/posx.jpg");
+	faces.push_back("SkyBox/Others/negx.jpg");
+	faces.push_back("SkyBox/Others/posy.jpg");
+	faces.push_back("SkyBox/Others/negy.jpg");
+	faces.push_back("SkyBox/Others/posz.jpg");
+	faces.push_back("SkyBox/Others/negz.jpg");
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
     
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
@@ -1052,8 +1058,6 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		camera.ProcessKeyboard(LEFT, (float)deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, (float)deltaTime);
-
-
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 		lightPosition.z -=0.5f;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
@@ -1067,16 +1071,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	}
 	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
 		lambo = !lambo;
-
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-	{
-		//animacionG ^= true; -11, 2, -10
-		animacionG = !animacionG;
-		movGlobo_x = -12.0f;
-		movGlobo_y = 1.0f;
-		movGlobo_z = -10.0f;
-	}
-		
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		sonido();
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
