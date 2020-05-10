@@ -77,6 +77,8 @@ float movAutoX = -25.0f,
       movAutoZ = -55.0f,
 	  radio    =  13.2f,
       rotModel =  0.0f;
+//Para modelo virus
+float movVirusY =1.0f;
 
 
 void sonido() {
@@ -203,11 +205,25 @@ void myData()
 
 }
 
-int mov_auto = 0;
-int mov_avion = 0;
+int mov_auto = 0,
+	mov_avion = 0,
+	mov_covid = 0;
 float velocidad = 0.5;
+
 void animate(void)
 {
+	if (mov_covid == 0)
+	{
+		movVirusY += velocidad - 0.4f;;
+		if (movVirusY >= 5.0f)
+			mov_covid = 1;
+
+	}
+	if (mov_covid == 1) {
+		movVirusY -= velocidad - 0.4f;
+		if (movVirusY <= 3.0f)
+			mov_covid = 0;
+	}
 	if (lambo) {
 		if (mov_auto == 0) {
 			movAutoZ += velocidad;
@@ -337,7 +353,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
 
 	//Use "projection" to include Camera
-	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 150.0f);
 	view = camera.GetViewMatrix();
 
 	// pass them to the shaders
@@ -349,13 +365,16 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
 	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
-	modelLlantas -> 21
+	modelLlantas -> 21, modelVirus ->22
 	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
 	origin = glm::mat4(1.0f);
 	//Temporal para manipulacion del modelo Lambo
 	glm::mat4 tmp = glm::mat4(1.0f);
+	//Temporal para el covid
+	glm::mat4 tmp1 = glm::mat4(1.0f);
+
 
 
 
@@ -691,10 +710,6 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelAvion = glm::translate(origin, glm::vec3(-35.0f, -0.5f ,-55.0f ));
 	shader.setMat4("model", modelAvion);
 	modelArr.at(19).Draw(shader);
-
-
-	
-
 	//Lambo
 	glm::mat4 modelLambo = glm::translate(origin, glm::vec3(movAutoX, movAutoY,movAutoZ));
 	modelLambo = glm::rotate(modelLambo, glm::radians(-rotModel - 1800.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -729,6 +744,29 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelShrek = glm::rotate(modelShrek,glm::radians(rotShrek),glm::vec3(0.0f,1.0f,0.0f));
 	shader.setMat4("model", modelShrek);
 	modelArr.at(17).Draw(shader);
+
+	float movX = 5.0f,
+		  movZ = 5.0f;
+	glm::mat4 modelVirus = glm::translate(origin, glm::vec3(-20.0f, 0.0f, 0.0f));
+	//tmp1 = modelVirus;
+	tmp = modelVirus;
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			modelVirus = glm::translate(modelVirus, glm::vec3(0.0f, movVirusY,movZ));
+			shader.setMat4("model", modelVirus);
+			modelArr.at(22).Draw(shader);
+			//modelVirus = glm::translate(tmp, glm::vec3(movX, movVirusY, 0.0f));
+
+		}
+
+		tmp = glm::translate(tmp, glm::vec3(movX,0.0f, 0.0f));
+		modelVirus = tmp;
+	}
+
+
+
 	// Draw skybox as last
 	glDepthFunc(GL_LEQUAL);  // Change depth function so depth test passes when values are equal to depth buffer's content
 	skyboxShader.use();
@@ -819,6 +857,7 @@ int main()
 	Model modelPlataforma = ((char *)"Models/plataforma/plataforma.obj");
 	Model modelLambo = ((char *)"Models/Lambo/carroseria.obj");
 	Model modelLlantas = ((char *)"Models/Lambo/Wheel.obj");
+	Model modelVirus = ((char *) "Models/virus/covid.obj");
 
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
@@ -845,6 +884,8 @@ int main()
 	modelArr.push_back(modelPlataforma); // 19
 	modelArr.push_back(modelLambo); // 20
 	modelArr.push_back(modelLlantas); // 21
+	modelArr.push_back(modelVirus); // 22
+
 
 	// Load textures
 	vector<const GLchar*> faces;

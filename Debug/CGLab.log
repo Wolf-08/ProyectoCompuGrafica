@@ -2,6 +2,6 @@
   ProyectoGrafica.cpp
 c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': redefinición de macro
   c:\users\aleja\source\repos\proyectocompugrafica\include\glfw3.h(98): note: vea la definición anterior de 'APIENTRY'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(966): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(973): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1007): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1014): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
   CGLab.vcxproj -> C:\Users\aleja\source\repos\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe
