@@ -989,12 +989,20 @@ int main()
 	faces.push_back("SkyBox/back.tga");
 	faces.push_back("SkyBox/front.tga");*/
 	/*OTRO*/
-	faces.push_back("SkyBox/Others/purplenebula_rt.tga");
+	/*faces.push_back("SkyBox/Others/purplenebula_rt.tga");
 	faces.push_back("SkyBox/Others/purplenebula_lf.tga");
 	faces.push_back("SkyBox/Others/purplenebula_up.tga");
 	faces.push_back("SkyBox/Others/purplenebula_dn.tga");
 	faces.push_back("SkyBox/Others/purplenebula_bk.tga");
-	faces.push_back("SkyBox/Others/purplenebula_ft.tga");
+	faces.push_back("SkyBox/Others/purplenebula_ft.tga");*/
+
+	faces.push_back("SkyBox/Others/posx.jpg");
+	faces.push_back("SkyBox/Others/negx.jpg");
+	faces.push_back("SkyBox/Others/posy.jpg");
+	faces.push_back("SkyBox/Others/negy.jpg");
+	faces.push_back("SkyBox/Others/negz.jpg");
+	faces.push_back("SkyBox/Others/posz.jpg");
+
 
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
     
@@ -1076,7 +1084,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		movGlobo_y = 1.0f;
 		movGlobo_z = -10.0f;
 	}
-		
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		sonido();
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
