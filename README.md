@@ -5,7 +5,7 @@
 
 Se tomo como referencia la siguiente imagen para la creación del condominio. 
 
-<img src="C:\Users\aleja\Documents\CompuGrafica\EsquemaProyecto.jpg" alt="EsquemaProyecto" style="zoom: 25%;" />
+<img src="C:\Users\aleja\source\repos\ProyectoCompuGrafica\EsquemaProyecto.jpg" alt="EsquemaProyecto" style="zoom: 33%;" />
 
 Con la creación de diferentes secciones , como se muestra continuación dejando en el centro espacio para una fuente y ahí poder mostrar las animaciones creadas para el proyecto. 
 
@@ -29,7 +29,7 @@ Si se hace en el escritorio o en cualquier otra carpeta esto creara otra carpeta
 
 
 
-<img src="C:\Users\aleja\AppData\Roaming\Typora\typora-user-images\image-20200510200831835.png" alt="image-20200510200831835" style="zoom: 67%;" />
+![image-20200510200831835](C:\Users\aleja\source\repos\ProyectoCompuGrafica\image-20200510200831835.png)
 
 
 
@@ -37,7 +37,7 @@ La cual va contener todos los archivos necesarios para le ejecución del proyect
 
 > Consultar Manual de Usuario Completo para la Manipulación del Proyecto. 
 >
->  https://docs.google.com/document/d/1536uTF_cDd6uIxV8wi83tpmsr7iZm5lALjUoGoqLAP4/edit?usp=sharing
+>  Se encuentra dentro de los documentos del proyecto.
 
 ### Integrantes:
 

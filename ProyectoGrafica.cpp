@@ -78,7 +78,12 @@ float movAutoX = -25.0f,
 	  radio    =  13.2f,
       rotModel =  0.0f;
 //Para modelo virus
-float movVirusY =1.0f;
+float movVirusY =5.0f;
+//Animacion Cohete
+float mov_x = 0.0,
+	  mov_y = 0.0f,
+       radioC=2.0f,rotC=0.0f;
+bool cohete = false;
 
 //Animacion globo -11, 2, -10
 float
@@ -217,20 +222,69 @@ void myData()
 
 int mov_auto = 0,
 	mov_avion = 0,
-	mov_covid = 0;
-float velocidad = 0.15;
+	mov_covid = 0,
+	mov_cohete = 0;
+float velocidad = 1.0;
 
 void animate(void)
 {
+	if (cohete) {
+		if (mov_cohete == 0)
+		{
+			mov_y += velocidad;
+			if (mov_y >= 25.0f)
+				mov_cohete = 1;
+
+		}
+
+		if (mov_cohete == 1)
+		{
+			rotC += 2.0f;
+			mov_x = radioC * cos(glm::radians(rotC));
+			mov_y = 24.0f + radioC * sin(glm::radians(rotC));
+			if (rotC >= 360.0f) {
+				//rotC = 0.0f;
+				mov_auto = 2;
+			}
+
+		}
+
+		if (mov_cohete == 2) {
+			rotC = 26.56f;
+			mov_x += 0.5;
+			mov_y += 0.5;
+			if (mov_x >= 20.0f)
+				mov_cohete = 3;
+		}
+		//if (mov_cohete == 3) {
+		//	rotC += 2.0f;
+		//	mov_x = 20.0f + radio * cos(glm::radians(rotC));
+		//	mov_y = 28.0f + radio * sin(glm::radians(rotC));
+		//	if (rotC >= 160.56f) {
+		//		//rotModel = 0.0f;
+		//		mov_cohete = 4;
+		//	}
+		//}
+		//if (mov_cohete == 4) {
+		//	rotC = 160.0f;
+		//	mov_x += 0.5;
+		//	mov_y -= 0.5;
+		//	if (mov_y <= 5.0f)
+		//		mov_cohete = 5;
+		//}
+
+
+	}
+	
 	if (mov_covid == 0)
 	{
-		movVirusY += velocidad - 0.4f;;
+		movVirusY += 0.3;
 		if (movVirusY >= 5.0f)
 			mov_covid = 1;
 
 	}
 	if (mov_covid == 1) {
-		movVirusY -= velocidad - 0.4f;
+		movVirusY -= 0.3;
 		if (movVirusY <= 3.0f)
 			mov_covid = 0;
 	}
@@ -382,10 +436,12 @@ void animate(void)
 			}
 		}
 	}
-	
-	printf("movX %f  \n ", movAutoX );
-	//printf("movY %f  \n ", movAutoY); 
-	printf("movZ %f  \n ", movAutoZ); 
+	printf("cohetey %f \n", mov_y);
+	printf("coheteX %f \n", mov_x);
+
+	//printf("movX %f  \n ", movAutoX );
+	////printf("movY %f  \n ", movAutoY); 
+	//printf("movZ %f  \n ", movAutoZ); 
 
 }
 
@@ -437,8 +493,8 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelPiso -> 0, modelAlberca -> 1, modelCasa -> 2, modelEdificio -> 3, modelBuilding -> 4, modelEdificio2 -> 5, modelResidencia -> 6,
 	modelHouseF -> 7, modelArbol -> 8, modelArbol1 -> 9, modelArbol2 -> 10, modelPalmera1 -> 11, modelLampara -> 12, modelArbolSaul -> 13, 
 	modelSauce -> 14, modelPlanta -> 15, modelFuente -> 16, modelShrek -> 17, modelAvion -> 18, modelPlataforma -> 19,modelLambo ->20
-	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNi�a -> 24
-	*/ /*EL 6 Y EL 9 NO SIRVEN*/
+	modelLlantas -> 21, modelVirus ->22, modelGlobo -> 23, modelNi�a -> 24, modelRes-> 25,modelBote->26,
+	modelJuego->27	*/ /*EL 6 Y EL 9 NO SIRVEN*/
 
 	model = glm::mat4(1.0f);
 	origin = glm::mat4(1.0f);
@@ -826,20 +882,21 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			modelVirus = glm::translate(modelVirus, glm::vec3(0.0f, movVirusY,movZ));
+			modelVirus = glm::translate(modelVirus, glm::vec3(0.0f, movVirusY, movZ));
 			shader.setMat4("model", modelVirus);
 			modelArr.at(22).Draw(shader);
 			//modelVirus = glm::translate(tmp, glm::vec3(movX, movVirusY, 0.0f));
 
 		}
 
-		tmp = glm::translate(tmp, glm::vec3(movX,0.0f, 0.0f));
+		tmp = glm::translate(tmp, glm::vec3(movX, 0.0f, 0.0f));
 		modelVirus = tmp;
 	}
+		
 
 	//globo
 	glm::mat4
-		modelGlobo = glm::rotate(modelGlobo, glm::radians(0.0f), glm::vec3(0.0f, 0.3f, 0.0f));
+	modelGlobo = glm::rotate(modelGlobo, glm::radians(0.0f), glm::vec3(0.0f, 0.3f, 0.0f));
 	modelGlobo = glm::translate(glm::mat4(1.0f), glm::vec3(movGlobo_x, movGlobo_y, movGlobo_z));
 	modelGlobo = glm::scale(modelGlobo, glm::vec3(0.5f, 0.5f, 0.5f));
 	shader.setMat4("model", modelGlobo);
@@ -851,6 +908,77 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelNina = glm::scale(modelNina, glm::vec3(0.02f, 0.02f, 0.02f));
 	shader.setMat4("model", modelNina);
 	modelArr.at(24).Draw(shader);
+
+	glm::mat4 modelRes = glm::translate(origin, glm::vec3(53.0f, -1.0f, 30.0f));
+	modelRes = glm::rotate(modelRes, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelRes = glm::scale(modelRes, glm::vec3(1.5f, 1.5f, 1.5f));
+	shader.setMat4("model", modelRes);
+	modelArr.at(25).Draw(shader);
+	
+	glm::mat4 modelBote = glm::translate(origin, glm::vec3(55.0f, -1.7f, 21.0f));
+	modelBote = glm::rotate(modelBote, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelBote = glm::scale(modelBote, glm::vec3(5.0f, 5.0f, 5.0f));
+	shader.setMat4("model", modelBote);
+	modelArr.at(26).Draw(shader);
+
+	glm::mat4 modelBote1 = glm::translate(origin, glm::vec3(55.0f, -1.7f, 19.0f));
+	modelBote1 = glm::rotate(modelBote1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelBote1 = glm::scale(modelBote1, glm::vec3(5.0f, 5.0f, 5.0f));
+	shader.setMat4("model", modelBote1);
+	modelArr.at(26).Draw(shader);
+
+	glm::mat4 modelJuego = glm::translate(origin, glm::vec3(44.0f,-0.8f,25.0f));
+	shader.setMat4("model", modelJuego);
+	modelArr.at(27).Draw(shader);
+
+	glm::mat4 modelCrash = glm::translate(origin, glm::vec3(-20.0f, 0.0f, 45.0f));
+	modelCrash = glm::rotate(modelCrash, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelCrash = glm::scale(modelCrash, glm::vec3(0.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelCrash);
+	modelArr.at(28).Draw(shader);
+
+
+	glm::mat4 modelCrash1 = glm::translate(origin, glm::vec3(0.0f, 0.0f, 45.0f));
+	modelCrash1 = glm::rotate(modelCrash1, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelCrash1 = glm::scale(modelCrash1, glm::vec3(0.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelCrash1);
+	modelArr.at(28).Draw(shader);
+
+
+	glm::mat4 modelCrash2 = glm::translate(origin, glm::vec3(10.0f, 0.0f, 45.0f));
+	modelCrash2 = glm::rotate(modelCrash2, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelCrash2 = glm::scale(modelCrash2, glm::vec3(0.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelCrash2);
+	modelArr.at(28).Draw(shader);
+
+	glm::mat4 modelCrash3 = glm::translate(origin, glm::vec3(25.0f, 0.0f, 45.0f));
+	modelCrash3 = glm::rotate(modelCrash3, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelCrash3 = glm::scale(modelCrash3, glm::vec3(0.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelCrash3);
+	modelArr.at(28).Draw(shader);
+
+	glm::mat4 modelCohete = glm::translate(glm::mat4(1.0f), glm::vec3(-23.0f, -6.0f, 35.0f));
+	modelCohete = glm::translate(modelCohete, glm::vec3(mov_x, mov_y, 0.0f));
+	modelCohete = glm::rotate(modelCohete, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	modelCohete = glm::rotate(modelCohete, glm::radians(rotC - 360.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	shader.setMat4("model", modelCohete);
+	modelArr.at(29).Draw(shader);
+
+	glm::mat4 modelBanca = glm::translate(origin, glm::vec3(46.0f, -6.0f, -17.5f));
+	//modelCrash3 = glm::scale(modelCrash3, glm::vec3(1.5.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelBanca);
+	modelArr.at(30).Draw(shader);
+
+	glm::mat4 modelBanca1 = glm::translate(origin, glm::vec3(20.0f, -6.0f, -37.0f));
+	//modelCrash3 = glm::scale(modelCrash3, glm::vec3(1.5.3f, 0.3f, 0.3f));
+	shader.setMat4("model", modelBanca1);
+	modelArr.at(30).Draw(shader);
+
+
+
+
+
+
 
 
 	// Draw skybox as last
@@ -946,6 +1074,13 @@ int main()
 	Model modelVirus = ((char *) "Models/virus/covid.obj");
 	Model modelGlobo = ((char *)"Models/globo/globo.obj");
 	Model modelNina = ((char *)"Models/nina/nina.obj");
+	Model modelRes = ((char *)"Models/resbaladilla/resbaladilla.obj");
+	Model modelBote = ((char *)"Models/bote/bote.obj");
+	Model modelJuego = ((char *)"Models/juego/juego.obj");
+	Model modelCrash = ((char *)"Models/crash/crash.obj");
+	Model modelCohete = ((char *)"Models/Cohete/cohete.obj");
+	Model modelBanca = ((char *)"Models/banca/banca2.obj");
+
 	/*Array para los modelos*/
 	std::vector<Model> modelArr;
 	modelArr.push_back(modelPiso); //0
@@ -974,6 +1109,13 @@ int main()
 	modelArr.push_back(modelVirus); // 22
 	modelArr.push_back(modelGlobo); // 23
 	modelArr.push_back(modelNina); // 24
+	modelArr.push_back(modelRes); // 25
+	modelArr.push_back(modelBote); // 26
+	modelArr.push_back(modelJuego); // 27
+	modelArr.push_back(modelCrash); // 28
+	modelArr.push_back(modelCohete); // 29
+	modelArr.push_back(modelBanca); // 30
+
 
 	// Load textures
 	vector<const GLchar*> faces;
@@ -1003,7 +1145,7 @@ int main()
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
     
 	glm::mat4 projection = glm::mat4(1.0f);	//This matrix is for Projection
-	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 150.0f);
 	// render loop
     // While the windows is not closed
     while (!glfwWindowShouldClose(window))
@@ -1018,7 +1160,7 @@ int main()
         //my_input(window);
 		animate();
 		//for sherk
-		rotShrek += 1.0;
+		rotShrek += 2.0;
         // render
         // Backgound color
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -1026,7 +1168,8 @@ int main()
 
 		//display(modelShader, ourModel, llantasModel);
 		display(modelShader, SkyBoxshader, cubemapTexture, modelArr);
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+		//std::cout << "Modelos" << modelArr.size() << "Modelos";
+		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -1079,6 +1222,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	}
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	sonido();
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+		cohete = !cohete;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

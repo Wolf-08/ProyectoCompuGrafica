@@ -2,10 +2,12 @@
   ProyectoGrafica.cpp
 c:\program files (x86)\windows kits\10\include\10.0.17763.0\shared\minwindef.h(130): warning C4005: 'APIENTRY': redefinición de macro
   c:\users\aleja\source\repos\proyectocompugrafica\include\glfw3.h(98): note: vea la definición anterior de 'APIENTRY'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(344): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(356): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(367): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(378): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1111): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1118): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(281): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(287): warning C4305: '-=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(395): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(407): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(418): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(429): warning C4305: '+=': truncamiento de 'double' a 'float'
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1254): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1261): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
   CGLab.vcxproj -> C:\Users\aleja\source\repos\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe
