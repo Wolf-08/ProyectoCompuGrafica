@@ -218,7 +218,7 @@ void myData()
 int mov_auto = 0,
 	mov_avion = 0,
 	mov_covid = 0;
-float velocidad = 0.5;
+float velocidad = 0.15;
 
 void animate(void)
 {
