@@ -37,7 +37,7 @@ La cual va contener todos los archivos necesarios para le ejecución del proyect
 
 > Consultar Manual de Usuario Completo para la Manipulación del Proyecto. 
 >
->  Se encuentra dentro de los documentos del proyecto.
+>  Se encuentra dentro de los documentos del proyecto compartidos por Google Drive
 
 ### Integrantes:
 
