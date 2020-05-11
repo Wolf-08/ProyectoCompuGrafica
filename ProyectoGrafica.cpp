@@ -228,6 +228,7 @@ float velocidad = 1.0;
 
 void animate(void)
 {
+	rotShrek += 6;
 	if (cohete) {
 		if (mov_cohete == 0)
 		{
@@ -243,8 +244,8 @@ void animate(void)
 			mov_x = radioC * cos(glm::radians(rotC));
 			mov_y = 24.0f + radioC * sin(glm::radians(rotC));
 			if (rotC >= 360.0f) {
-				//rotC = 0.0f;
-				mov_auto = 2;
+				rotC = 0.0f;
+				mov_cohete = 2;
 			}
 
 		}
@@ -256,23 +257,22 @@ void animate(void)
 			if (mov_x >= 20.0f)
 				mov_cohete = 3;
 		}
-		//if (mov_cohete == 3) {
-		//	rotC += 2.0f;
-		//	mov_x = 20.0f + radio * cos(glm::radians(rotC));
-		//	mov_y = 28.0f + radio * sin(glm::radians(rotC));
-		//	if (rotC >= 160.56f) {
-		//		//rotModel = 0.0f;
-		//		mov_cohete = 4;
-		//	}
-		//}
-		//if (mov_cohete == 4) {
-		//	rotC = 160.0f;
-		//	mov_x += 0.5;
-		//	mov_y -= 0.5;
-		//	if (mov_y <= 5.0f)
-		//		mov_cohete = 5;
-		//}
-
+		if (mov_cohete == 3) {
+			rotC += 2.0f;
+			mov_x = 19.0f + radio * cos(glm::radians(rotC));
+			mov_y = 42.0f + radio * sin(glm::radians(rotC));
+			if (rotC >= 160.56f) {
+				//rotModel = 0.0f;
+				mov_cohete = 4;
+			}
+		}
+		if (mov_cohete == 4) {
+			rotC = 160.0f;
+			mov_x += 0.5;
+			mov_y -= 0.5;
+			if (mov_y <= 10.0f)
+				mov_cohete = 5;
+		}
 
 	}
 	
@@ -355,7 +355,7 @@ void animate(void)
 		if (mov_avion == 3)
 		{
 			movAvion_z -= velocidad;
-			avionRotY = -180.0f;
+			avionRotY = 360.0f;
 			if (movAvion_z <= -60.0f)
 				mov_avion = 4;
 		}
@@ -438,7 +438,7 @@ void animate(void)
 	}
 	printf("cohetey %f \n", mov_y);
 	printf("coheteX %f \n", mov_x);
-
+	printf("rotC  %f \n", rotC);
 	//printf("movX %f  \n ", movAutoX );
 	////printf("movY %f  \n ", movAutoY); 
 	//printf("movZ %f  \n ", movAutoZ); 
@@ -928,6 +928,7 @@ void display(Shader shader, Shader skyboxShader, GLuint skybox, std::vector<Mode
 	modelArr.at(26).Draw(shader);
 
 	glm::mat4 modelJuego = glm::translate(origin, glm::vec3(44.0f,-0.8f,25.0f));
+	modelJuego = glm::rotate(modelJuego, glm::radians(rotShrek), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", modelJuego);
 	modelArr.at(27).Draw(shader);
 
@@ -1160,7 +1161,7 @@ int main()
         //my_input(window);
 		animate();
 		//for sherk
-		rotShrek += 2.0;
+	
         // render
         // Backgound color
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -1222,8 +1223,9 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	}
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	sonido();
-	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
 		cohete = !cohete;
+	}
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

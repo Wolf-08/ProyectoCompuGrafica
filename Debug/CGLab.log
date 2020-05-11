@@ -8,6 +8,6 @@ c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(395): warni
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(407): warning C4305: '+=': truncamiento de 'double' a 'float'
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(418): warning C4305: '+=': truncamiento de 'double' a 'float'
 c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(429): warning C4305: '+=': truncamiento de 'double' a 'float'
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1254): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
-c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1261): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1256): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+c:\users\aleja\source\repos\proyectocompugrafica\proyectografica.cpp(1263): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
   CGLab.vcxproj -> C:\Users\aleja\source\repos\ProyectoCompuGrafica\Debug\CGProyectoFinal.exe
