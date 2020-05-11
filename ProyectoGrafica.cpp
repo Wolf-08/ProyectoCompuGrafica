@@ -97,12 +97,9 @@ recorridoG5 = false;
 void sonido() {
 
 	sndPlaySound("s.wav", SND_ASYNC);
-
 }
 
 bool arriba = false;
-
-
 void sonido();
 
 unsigned int generateTextures(const char* filename, bool alfa)
@@ -999,8 +996,8 @@ int main()
 	faces.push_back("SkyBox/Others/negx.jpg");
 	faces.push_back("SkyBox/Others/posy.jpg");
 	faces.push_back("SkyBox/Others/negy.jpg");
-	faces.push_back("SkyBox/Others/negz.jpg");
 	faces.push_back("SkyBox/Others/posz.jpg");
+	faces.push_back("SkyBox/Others/negz.jpg");
 
 
 	GLuint cubemapTexture = TextureLoading::LoadCubemap(faces);
@@ -1081,7 +1078,7 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		movGlobo_z = -10.0f;
 	}
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-		sonido();
+	sonido();
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
