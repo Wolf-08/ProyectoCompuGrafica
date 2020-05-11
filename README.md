@@ -5,7 +5,7 @@
 
 Se tomo como referencia la siguiente imagen para la creación del condominio. 
 
-<img src="C:\Users\aleja\source\repos\ProyectoCompuGrafica\EsquemaProyecto.jpg" alt="EsquemaProyecto" style="zoom: 33%;" />
+<img src="EsquemaProyecto.jpg" style="zoom:50%;" />
 
 Con la creación de diferentes secciones , como se muestra continuación dejando en el centro espacio para una fuente y ahí poder mostrar las animaciones creadas para el proyecto. 
 
@@ -29,7 +29,7 @@ Si se hace en el escritorio o en cualquier otra carpeta esto creara otra carpeta
 
 
 
-![image-20200510200831835](C:\Users\aleja\source\repos\ProyectoCompuGrafica\image-20200510200831835.png)
+<img src="image-20200510200831835.png" style="zoom: 80%;" />
 
 
 
